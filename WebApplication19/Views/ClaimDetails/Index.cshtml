@@ -1,0 +1,63 @@
+﻿@model IEnumerable<VIMS.Models.ClaimDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerPolicyRecord.ApplicationUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClaimNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceOfAccident)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfAccident)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InsuredAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClaimableAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerPolicyRecord.ApplicationUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClaimNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlaceOfAccident)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfAccident)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InsuredAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClaimableAmount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClaimDetailId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClaimDetailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClaimDetailId })
+        </td>
+    </tr>
+}
+
+</table>

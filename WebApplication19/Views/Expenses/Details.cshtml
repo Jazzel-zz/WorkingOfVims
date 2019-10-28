@@ -1,0 +1,42 @@
+﻿@model VIMS.Models.Expense
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfExpense)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfExpense)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfExpense)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfExpense)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountOfExpense)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountOfExpense)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExpenseId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

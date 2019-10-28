@@ -1,0 +1,108 @@
+﻿@model VIMS.Models.VehicleInformation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>*@
+<p>
+    <i class="fa fa-caret-left" aria-hidden="true"></i>
+    @Html.ActionLink("Back to Results", "Index")
+</p>
+<div class="card shadow-lg">
+    <div class="card-body">
+        <h4>Vehicle Details</h4>
+        <hr />
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+                <h1 style="font-family:Pacifico">
+                    #@Html.DisplayFor(model => model.VehicleInformationId):
+                    @Html.DisplayFor(model => model.VehicleName)
+                </h1>
+                <div style="font-family:'Century Gothic'">
+                    <div class="row">
+                        <div class="col">
+                            <h4>
+                                by @Html.DisplayFor(model => model.ApplicationUser.UserName)
+                            </h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <h6 class="font-weight-bold">Images:</h6>
+                    <div class="row">
+                        @{
+                            string[] data = ViewBag.Images.Split(':');
+                            int i = 0;
+                            <div class="row ml-2">
+                                @foreach (var image in data)
+                                {
+                                    i++;
+                                    <img src="@image" class="float-left ml-2 img-thumbnail ml-2" id="@i" width="200" height="180" />
+                                }
+
+                            </div>
+
+
+                        }
+                    </div>
+                    <hr />
+                    <h6 class="font-weight-bold">Basic Details:</h6>
+                    <div class="row">
+                        <div class="col">
+                            <h6>
+                                Rate: $@Html.DisplayFor(model => model.VehicleRate)
+                            </h6>
+                        </div>
+                        <div class="col">
+                            <h6>
+                                Color: @Html.DisplayFor(model => model.VehicleColor)
+                            </h6>
+                        </div>
+                        <div class="col">
+                            <h6>
+                                Model: @Html.DisplayFor(model => model.VehicleModel)
+                            </h6>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <h6 class="font-weight-bold">Complex Details:</h6>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Vehicle Number: @Html.DisplayFor(model => model.VehicleNumber)
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>
+                                Body Number: @Html.DisplayFor(model => model.VehicleBodyNumber)
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p>
+                                Engine Number: @Html.DisplayFor(model => model.VehicleEngineNumber)
+                            </p>
+                        </div>
+                    </div>
+                    <hr />
+                    <h6 class="font-weight-bold">Description:</h6>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                @Html.DisplayFor(model => model.VehicleDescription)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        @*<h3>Compare with cars of same type or company</h3>
+            <table>
+
+            </table>*@
+    </div>
+</div>
+
+

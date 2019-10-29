@@ -182,6 +182,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PolicyTypesController.cs" />
+    <Compile Include="Controllers\UnauthorizedUserController.cs" />
     <Compile Include="Controllers\VehicleInformationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -201,6 +202,62 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\4d756.css" />
+    <Content Include="assets\css\8b453.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\c138f.css" />
+    <Content Include="assets\css\css.css" />
+    <Content Include="assets\css\fcfe9.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\rbt-modules.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\images\BizzHome.jpg" />
+    <Content Include="assets\images\home-main-gallery-1.jpg" />
+    <Content Include="assets\images\home-main-gallery-2.jpg" />
+    <Content Include="assets\images\home-main-gallery-3.jpg" />
+    <Content Include="assets\images\home-main-gallery-4.jpg" />
+    <Content Include="assets\images\home-main-gallery-5.jpg" />
+    <Content Include="assets\images\home-main-gallery-6.jpg" />
+    <Content Include="assets\images\Home-Main-Parallax-1.jpg" />
+    <Content Include="assets\images\Home-Main-Parallax-2.jpg" />
+    <Content Include="assets\images\Home-Main-Parallax-3.jpg" />
+    <Content Include="assets\images\Home-Main-Single-image1.jpg" />
+    <Content Include="assets\images\Home-Main-Team-1.jpg" />
+    <Content Include="assets\images\Home-Main-Team-2.jpg" />
+    <Content Include="assets\images\Home-Main-Team-3.jpg" />
+    <Content Include="assets\images\Home-Main-Team-4.jpg" />
+    <Content Include="assets\images\Home-Main-Testimonial-1.png" />
+    <Content Include="assets\images\Home-Main-Testimonial-2.png" />
+    <Content Include="assets\images\Home-Main-Testimonial-3.png" />
+    <Content Include="assets\images\logo-footer.png" />
+    <Content Include="assets\images\long-arrow-alt-down-solid.svg" />
+    <Content Include="assets\images\p-bold-lamp-design-800x600.jpg" />
+    <Content Include="assets\images\p-cantina-concept-design-800x600.jpg" />
+    <Content Include="assets\images\p-office-interior-design1-800x600.jpg" />
+    <Content Include="assets\images\p-scandinavian-coffee-shop1-800x600.jpg" />
+    <Content Include="assets\images\p-simpla-identity-design1-800x600.jpg" />
+    <Content Include="assets\images\p-the-simpla-chair-800x600.jpg" />
+    <Content Include="assets\images\parallax-home-main-new.jpg" />
+    <Content Include="assets\images\slide-new-2.jpg" />
+    <Content Include="assets\images\slide-new-3.jpg" />
+    <Content Include="assets\images\slide-new-4.jpg" />
+    <Content Include="assets\images\slide-new-5.jpg" />
+    <Content Include="assets\images\slidenew1.jpg" />
+    <Content Include="assets\images\working.jpg" />
+    <Content Include="assets\js\0895c.js" />
+    <Content Include="assets\js\0fef6.js" />
+    <Content Include="assets\js\3c2c7.js" />
+    <Content Include="assets\js\6d18f.js" />
+    <Content Include="assets\js\79897.js" />
+    <Content Include="assets\js\864c2.js" />
+    <Content Include="assets\js\b02cd.js" />
+    <Content Include="assets\js\eff97.js" />
+    <Content Include="assets\js\f1253.js" />
+    <Content Include="assets\js\f6e06.js" />
+    <Content Include="assets\js\Home-Main-Parallax-3.jpg" />
+    <Content Include="assets\js\Home-Main-Testimonial-3.png" />
+    <Content Include="assets\js\jquery.lazy.min.js" />
+    <Content Include="assets\js\rbt-modules.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -249,6 +306,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\horizontal-layout\architectui-angular-free-theme-20191027T114741Z-001.zip" />
+    <Content Include="assets\js\fontawesome-free-5.11.2-web.zip" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\hoverable-collapse.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -278,6 +336,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -361,6 +420,8 @@
     <Content Include="Views\Expenses\Details.cshtml" />
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\UnauthorizedUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

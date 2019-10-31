@@ -71,35 +71,6 @@ namespace VIMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
-            //var user = UserManager.Find(model.Email, model.Password);
-            //if (user != null)
-            //{
-            //    string roleName = UserManager.GetRoles(user.Id).FirstOrDefault();
-            //    SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-            //    if (roleName.Equals("Admin"))
-            //    {
-            //        return RedirectToAction("Index", "Admin");
-            //    }
-            //    else if (roleName.Equals("Teacher"))
-            //    {
-            //        return RedirectToAction("Index", "Teacher");
-            //    }
-            //    else if (roleName.Equals("Student"))
-            //    {
-            //        return RedirectToAction("Index", "Student");
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Index", "Home");
-            //    }
-
-
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
             if (ModelState.IsValid)
             {
                 PasswordVerificationResult result = PasswordVerificationResult.Failed;

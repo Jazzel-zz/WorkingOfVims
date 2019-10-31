@@ -26917,7 +26917,7 @@ div.tagsinput span.tag a {
 /* === Landing screens === */
 /* Auth */
 .auth .login-half-bg {
-  background: url("../../images/auth/login-bg.jpg");
+  /*background: url("~/Content/images/auth/login-bg.jpg");*/
   background-size: cover;
 }
 
@@ -27861,6 +27861,10 @@ div.tagsinput span.tag a {
     left: 0;
     right: 0;
   }
+}
+
+input-group {
+    border: 1px solid #A3A4A5 !important;
 }
 
 /*# sourceMappingURL=../maps/horizontal-layout/style.css.map */

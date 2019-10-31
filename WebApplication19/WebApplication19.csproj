@@ -268,6 +268,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\horizontal-layout\font-awesome.min.css" />
     <Content Include="Content\horizontal-layout\style.css" />
+    <Content Include="Content\images\alex-suprun-A53o1drQS2k-unsplash.jpg" />
     <Content Include="Content\images\auth\login-bg.jpg" />
     <Content Include="Content\images\faces\face10.jpg" />
     <Content Include="Content\images\faces\face12.jpg" />
@@ -438,6 +439,10 @@
     <Content Include="Views\Expenses\Index.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\UnauthorizedUser\Index.cshtml" />
+    <Content Include="Views\Manage\MyAccount.cshtml" />
+    <Content Include="Views\Home\Testimonial.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
+    <Content Include="Views\Home\UserIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

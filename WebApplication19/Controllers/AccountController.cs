@@ -71,13 +71,15 @@ namespace VIMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.Errors = false;
             if (ModelState.IsValid)
             {
                 PasswordVerificationResult result = PasswordVerificationResult.Failed;
                 var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Invalid name or password.");
+                    ViewBag.Errors = true;
+                    ModelState.AddModelError("", "Error !! Couldn't find your account.");
                 }
                 else
                 {
@@ -85,7 +87,8 @@ namespace VIMS.Controllers
 
                     if (!(result == PasswordVerificationResult.Success))
                     {
-                        ModelState.AddModelError("", "Invalid name or password.");
+                        ViewBag.Errors = true;
+                        ModelState.AddModelError("", "Oops !! You have entered a wrong password.");
                     }
                     else
                     {
@@ -94,18 +97,27 @@ namespace VIMS.Controllers
 
                         if (user != null && isConfirmed.EmailConfirmed == true)
                         {
+                            ViewBag.Errors = false;
+
                             SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                             return RedirectToAction("Index", "Home");
 
                         }
                         else
                         {
+                            ViewBag.Errors = true;
                             ModelState.AddModelError("", "Couldn't find your account !!");
                         }
                     }
                 }
 
                 
+            }
+            else
+            {
+                ViewBag.Errors = true;
+                ModelState.AddModelError("", "Error !! Can't login with empty fields.");
+
             }
             return View(model);
 
@@ -468,7 +480,7 @@ namespace VIMS.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("UserIndex", "Home");
         }
 
         //

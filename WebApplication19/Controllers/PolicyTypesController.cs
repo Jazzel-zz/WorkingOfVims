@@ -13,14 +13,14 @@ namespace VIMS.Controllers
     public class PolicyTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: PolicyTypes
+        [Authorize]
         public ActionResult Index()
         {
             var policyTypes = db.PolicyTypes.Include(p => p.ApplicationUser);
             return View(policyTypes.ToList());
         }
-
+        [Authorize(Roles = "Employee")]
         // GET: PolicyTypes/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,7 +35,7 @@ namespace VIMS.Controllers
             }
             return View(policyType);
         }
-
+        [Authorize(Roles = "Employee")]
         // GET: PolicyTypes/Create
         public ActionResult Create()
         {
@@ -47,6 +47,7 @@ namespace VIMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Employee")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PolicyTypeId,Type,Description,Rate,Offer,Tracker,ApplicationUserId")] PolicyType policyType)
         {
@@ -61,6 +62,7 @@ namespace VIMS.Controllers
             return View(policyType);
         }
 
+        [Authorize(Roles = "Employee")]
         // GET: PolicyTypes/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -81,6 +83,7 @@ namespace VIMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Employee")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PolicyTypeId,Type,Description,Rate,Offer,Tracker,ApplicationUserId")] PolicyType policyType)
         {
@@ -94,6 +97,7 @@ namespace VIMS.Controllers
             return View(policyType);
         }
 
+        [Authorize(Roles = "Employee")]
         // GET: PolicyTypes/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -110,6 +114,7 @@ namespace VIMS.Controllers
         }
 
         // POST: PolicyTypes/Delete/5
+        [Authorize(Roles = "Employee")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -13,6 +13,11 @@ namespace VIMS.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult UserIndex()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {
@@ -24,6 +29,11 @@ namespace VIMS.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult Testimonial()
+        {
 
             return View();
         }

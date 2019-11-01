@@ -3,85 +3,191 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="card shadow-lg" style="font-family:'Century Gothic'">
+    <div class="card-body">
+        <h2 style="font-family:Pacifico">Hello @ViewBag.Name !!</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+        <p class="text-success">@ViewBag.StatusMessage</p>
+        <div>
+            <h4>Username: @ViewBag.Username</h4>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <ul class="nav nav-tabs hover nav-tabs-vertical" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab-vertical" data-toggle="tab" href="#home-2" role="tab" aria-controls="home-2" aria-selected="true">
+                                    Profile
+                                    <i class="mdi mdi-home-outline text-info float-right "><i class="fas fa-user-tie h3"></i></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab-vertical" data-toggle="tab" href="#profile-2" role="tab" aria-controls="profile-2" aria-selected="false">
+                                    My Vehicles
+                                    <i class="mdi mdi-account-outline text-danger float-right "><i class="fas fa-car h3" aria-hidden="true"></i></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab-vertical" data-toggle="tab" href="#contact-2" role="tab" aria-controls="contact-2" aria-selected="false">
+                                    Insurance Policies
+                                    <i class="mdi mdi-email-outline text-success float-right "><i class="fas fa-file-contract  h3"></i></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-8">
+                        <div class="tab-content tab-content-vertical">
+                            <div class="tab-pane fade show active" id="home-2" role="tabpanel" aria-labelledby="home-tab-vertical">
+                                <div class="text-center h1" style="font-family:Pacifico">
+                                    Profile
+                                </div>
+                                <hr />
+                                <dl class="dl-horizontal">
+                                    <dt class="h4 mt-2">Name:</dt>
+                                    <dd class="h5 ml-3">@ViewBag.Name</dd>
+                                    <dt class="h4 mt-3">Email: </dt>
+                                    <dd class="h5 ml-3">@ViewBag.Email</dd>
+                                    <dt class="h4 mt-3">Username:</dt>
+                                    <dd class="h5 ml-3">@ViewBag.Username</dd>
+                                    <dt class="h4 mt-3">Password:</dt>
+                                    <dd class="h5 ml-3">
+                                        @ViewBag.Password
+                                        <br />
+                                        <p class="mt-2">
+                                            [
+                                            @if (Model.HasPassword)
+                                            {
+                                                @Html.ActionLink("Change your password", "ChangePassword")
+
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Create", "SetPassword")
+                                            }
+                                            ]
+                                        </p>
+                                    </dd>
+                                    @*<dt>External Logins:</dt>
+                                        <dd>
+                                            @Model.Logins.Count [
+                                            @Html.ActionLink("Manage", "ManageLogins") ]
+                                        </dd>*@
+                                    @*
+                                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                                         See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                                         Uncomment the following block after you have set up two-factor authentication
+                                    *@
+
+                                    <dt class="h4 mt-3">Phone Number:</dt>
+                                    <dd class="h5 ml-3">
+                                        @if (Model.PhoneNumber != null)
+                                        {
+                                            @Model.PhoneNumber
+                                            @*<p>&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;</p>
+                                                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="submit" value="Remove" class="btn-link" />
+                                                }*@
+                                        }
+                                        else
+                                        {
+                                            @*<p>&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")</p>*@
+                                        }
+                                    </dd>
+
+                                    @* <dt>Two-Factor Authentication:</dt>
+                                        <dd>
+                                            <p>
+                                                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                                for details on setting up this ASP.NET application to support two-factor authentication.
+                                            </p>
+                                           @if (Model.TwoFactor)
+                                                {
+                                                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <text>Enabled
+                                                        <input type="submit" value="Disable" class="btn btn-link" />
+                                                        </text>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <text>Disabled
+                                                        <input type="submit" value="Enable" class="btn btn-link" />
+                                                        </text>
+                                                    }
+                                                }
+                                        </dd>*@
+                                </dl>
+
+                            </div>
+                            <div class="tab-pane fade" id="profile-2" role="tabpanel" aria-labelledby="profile-tab-vertical">
+                                <div class="text-center">
+                                    <div class="text-center h1" style="font-family:Pacifico">
+                                        My Vehicles
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="offset-10 col">
+                                        <a href="/VehicleInformations/Create/" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    @{
+
+                                        string[] ids = ViewBag.vehicleIds.Split(':');
+                                        string[] names = ViewBag.vehicleNames.Split(':');
+                                    }
+                                    <br />
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Vehicle</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ids)
+                                            {
+                                                <tr>
+                                                    <td>@item</td>
+                                                </tr>
+                                            }
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact-2" role="tabpanel" aria-labelledby="contact-tab-vertical">
+                                <h4>Contact us </h4>
+                                <p>
+                                    Feel free to contact us if you have any questions!
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-phone text-info"></i>
+                                    +123456789
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-email-outline text-success"></i>
+                                    contactus@example.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
 </div>

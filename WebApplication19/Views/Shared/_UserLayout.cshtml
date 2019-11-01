@@ -16,7 +16,7 @@
     <script src="~/Scripts/js/f1253.js"></script>
     <script src="~/Scripts/js/864c2.js"></script>
     <style>
-        body{
+        body {
             background-color: #F4F4F4 !important;
         }
     </style>
@@ -46,7 +46,6 @@
                             <div class="qodef-position-right-inner">
                                 <nav class="qodef-main-menu qodef-drop-down qodef-default-nav">
                                     <ul id="menu-main-menu" class="clearfix">
-
                                         <li id="nav-menu-item-1773"
                                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
                                             <a href="/Home/UserIndex/" class="">
@@ -61,32 +60,51 @@
                                             </a>
 
                                         </li>
-                                        <li id="nav-menu-item-1785"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
-                                            <a href="/Account/Login/" class="">
-                                                <span class="item_outer">
-                                                    <span class="item_inner">
-                                                        <span class="menu_icon_wrapper">
-                                                            <i class="menu_icon null fa"></i>
-                                                        </span><span class="item_text">Sign In</span>
-                                                    </span><span class="plus"></span>
-                                                </span>
-                                            </a>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <li id="nav-menu-item-1785"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
+                                                <a href="/Account/Login/" class="">
+                                                    <span class="item_outer">
+                                                        <span class="item_inner">
+                                                            <span class="menu_icon_wrapper">
+                                                                <i class="menu_icon null fa"></i>
+                                                            </span><span class="item_text">Sign In</span>
+                                                        </span><span class="plus"></span>
+                                                    </span>
+                                                </a>
 
-                                        </li>
-                                        <li id="nav-menu-item-1796"
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide icons wide_background">
-                                            <a href="/Account/Register/" class="">
-                                                <span class="item_outer">
-                                                    <span class="item_inner">
-                                                        <span class="menu_icon_wrapper">
-                                                            <i class="menu_icon null fa"></i>
-                                                        </span><span class="item_text">Sign Up</span>
-                                                    </span><span class="plus"></span>
-                                                </span>
-                                            </a>
+                                            </li>
+                                            <li id="nav-menu-item-1796"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide icons wide_background">
+                                                <a href="/Account/Register/" class="">
+                                                    <span class="item_outer">
+                                                        <span class="item_inner">
+                                                            <span class="menu_icon_wrapper">
+                                                                <i class="menu_icon null fa"></i>
+                                                            </span><span class="item_text">Sign Up</span>
+                                                        </span><span class="plus"></span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li id="nav-menu-item-1796"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide icons wide_background">
+                                                <a href="/Manage/" class="">
+                                                    <span class="item_outer">
+                                                        <span class="item_inner">
+                                                            <span class="menu_icon_wrapper">
+                                                                <i class="menu_icon null fa"></i>
+                                                            </span><span class="item_text">Hello @User.Identity.Name !!</span>
+                                                        </span><span class="plus"></span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        }
 
-                                        </li>
+
                                         <li id="nav-menu-item-2501"
                                             class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children qodef-active-item has_sub narrow">
                                             <a href="/Home/Contact/" class=" current ">
@@ -144,10 +162,9 @@
                                 <div class="qodef-position-right-inner">
                                     <nav class="qodef-main-menu qodef-drop-down qodef-sticky-nav">
                                         <ul id="menu-main-menu-1" class="clearfix">
-
                                             <li id="sticky-nav-menu-item-1773"
                                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
-                                                <a href="./index.html" class="">
+                                                <a href="/Home/UserIndex/" class="">
                                                     <span class="item_outer"
                                                           style="margin-top: -4px;">
                                                         <span class="item_inner">
@@ -158,35 +175,51 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li id="sticky-nav-menu-item-1785"
-                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
-                                                <a href="./login.html" class="">
-                                                    <span class="item_outer">
-                                                        <span class="item_inner">
-                                                            <span class="menu_icon_wrapper">
-                                                                <i class="menu_icon null fa"></i>
-                                                            </span><span class="item_text">Sign In</span>
-                                                        </span><span class="plus"></span>
-                                                    </span>
-                                                </a>
-
-                                            </li>
-                                            <li id="sticky-nav-menu-item-1796"
-                                                class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide icons wide_background">
-                                                <a href="./signup.html" class="">
-                                                    <span class="item_outer">
-                                                        <span class="item_inner">
-                                                            <span class="menu_icon_wrapper">
-                                                                <i class="menu_icon null fa"></i>
-                                                            </span><span class="item_text">Sign Up</span>
-                                                        </span><span class="plus"></span>
-                                                    </span>
-                                                </a>
-
-                                            </li>
+                                            @if (!User.Identity.IsAuthenticated)
+                                            {
+                                                <li id="sticky-nav-menu-item-1785"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow">
+                                                    <a href="/Account/Login/" class="">
+                                                        <span class="item_outer">
+                                                            <span class="item_inner">
+                                                                <span class="menu_icon_wrapper">
+                                                                    <i class="menu_icon null fa"></i>
+                                                                </span><span class="item_text">Sign In</span>
+                                                            </span><span class="plus"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li id="sticky-nav-menu-item-1796"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide icons wide_background">
+                                                    <a href="/Account/Register/" class="">
+                                                        <span class="item_outer">
+                                                            <span class="item_inner">
+                                                                <span class="menu_icon_wrapper">
+                                                                    <i class="menu_icon null fa"></i>
+                                                                </span><span class="item_text">Sign Up</span>
+                                                            </span><span class="plus"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li id="sticky-nav-menu-item-2501"
+                                                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children qodef-active-item has_sub narrow">
+                                                    <a href="/Manage/" class=" current ">
+                                                        <span class="item_outer">
+                                                            <span class="item_inner">
+                                                                <span class="menu_icon_wrapper">
+                                                                    <i class="menu_icon null fa"></i>
+                                                                </span><span class="item_text">Hello @User.Identity.Name !!</span>
+                                                            </span><span class="plus"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            }
                                             <li id="sticky-nav-menu-item-2501"
                                                 class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children qodef-active-item has_sub narrow">
-                                                <a href="#" class=" current ">
+                                                <a href="/Home/Contact/" class=" current ">
                                                     <span class="item_outer">
                                                         <span class="item_inner">
                                                             <span class="menu_icon_wrapper">
@@ -195,7 +228,18 @@
                                                         </span><span class="plus"></span>
                                                     </span>
                                                 </a>
-
+                                            </li>
+                                            <li id="sticky-nav-menu-item-2501"
+                                                class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children qodef-active-item has_sub narrow">
+                                                <a href="/Home/About/" class=" current ">
+                                                    <span class="item_outer">
+                                                        <span class="item_inner">
+                                                            <span class="menu_icon_wrapper">
+                                                                <i class="menu_icon null fa"></i>
+                                                            </span><span class="item_text">About Us</span>
+                                                        </span><span class="plus"></span>
+                                                    </span>
+                                                </a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -251,20 +295,31 @@
                                         <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
                                     </span>
                                 </li>
-                                <li id="mobile-menu-item-1734"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                    <a href="/Account/Login/" class=""><span>Log In</span></a><span class="mobile_arrow">
-                                        <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
-                                    </span>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li id="mobile-menu-item-1740"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
+                                        <a href="/Manage/" class=""><span style="color:#212121 !important;">Hello @User.Identity.Name !!</span></a><span class="mobile_arrow">
+                                            <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
+                                        </span>
+                                    </li>
 
-                                </li>
-                                <li id="mobile-menu-item-1740"
-                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                    <a href="/Account/Register/" class=""><span style="color:#212121 !important;">Sign Up</span></a><span class="mobile_arrow">
-                                        <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
-                                    </span>
-
-                                </li>
+                                }
+                                else
+                                {
+                                    <li id="mobile-menu-item-1734"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
+                                        <a href="/Account/Login/" class=""><span>Log In</span></a><span class="mobile_arrow">
+                                            <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
+                                        </span>
+                                    </li>
+                                    <li id="mobile-menu-item-1740"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
+                                        <a href="/Account/Register/" class=""><span style="color:#212121 !important;">Sign Up</span></a><span class="mobile_arrow">
+                                            <i class="qodef-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i>
+                                        </span>
+                                    </li>
+                                }
                                 <li id="mobile-menu-item-1740"
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
                                     <a href="/Home/Contact/" class=""><span>Contact Us</span></a><span class="mobile_arrow">

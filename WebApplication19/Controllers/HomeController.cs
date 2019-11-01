@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace VIMS.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee,Customer")]
     public class HomeController : Controller
     {
         public ActionResult Index()

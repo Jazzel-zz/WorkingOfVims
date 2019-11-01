@@ -1,7 +1,21 @@
 ﻿@{
     ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 
-<p>Use this area to provide additional information.</p>
+}
+<div class="qodef-full-width-inner">
+    <div data-qodef-parallax-speed="1"
+         class="vc_row wpb_row vc_row-fluid qodef-section vc_custom_1448021633492 qodef-content-aligment-left"
+         style="">
+        <div class="clearfix qodef-full-section-inner">
+            <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-md-6">
+                <div class="vc_column-inner">
+                    <h2>@ViewBag.Title.</h2>
+                    <h3>@ViewBag.Message</h3>
+
+                    <p>Use this area to provide additional information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

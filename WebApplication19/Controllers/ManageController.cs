@@ -13,6 +13,7 @@ namespace VIMS.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -32,9 +33,9 @@ namespace VIMS.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -64,10 +65,40 @@ namespace VIMS.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Name = user.Name;
+            ViewBag.Username = user.UserName;
+            ViewBag.Email = user.Email;
+            ViewBag.Password = user.PasswordHash.Substring(0, 8) + "***************************";
+            var vehicleData = from item in db.VehicleInformations
+                              where item.ApplicationUserId == user.Id
+                              select item;
+            string _vehicleId = "";
+            string _vehicleName = "";
+
+            foreach (var item in vehicleData)
+            {
+                if (_vehicleId == "" && _vehicleName == "")
+                {
+                    _vehicleId = item.VehicleInformationId.ToString();
+                    _vehicleName = item.VehicleName;
+                }
+                else
+                {
+                    _vehicleId = ":" + item.VehicleInformationId.ToString();
+                    _vehicleName = ":" + item.VehicleName;
+                }
+            }
+            ViewBag.vehicleIds = _vehicleId;
+            ViewBag.vehicleNames = _vehicleName;
+
+
             var model = new IndexViewModel
             {
+
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                PhoneNumber = user.PhoneNumber,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -117,17 +148,20 @@ namespace VIMS.Controllers
                 return View(model);
             }
             // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
-            }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+            //var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+            //if (UserManager.SmsService != null)
+            //{
+            //    var message = new IdentityMessage
+            //    {
+            //        Destination = model.Number,
+            //        Body = "Your security code is: " + code
+            //    };
+            //    await UserManager.SmsService.SendAsync(message);
+            //}
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.PhoneNumber = model.Number;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         //
@@ -200,8 +234,12 @@ namespace VIMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
         {
-            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
+            var userData = UserManager.FindById(User.Identity.GetUserId());
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), userData.PhoneNumber);
+            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), "", code);
+            db.SaveChanges();
+            //var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
+            if (!result.Equals(0))
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
@@ -322,8 +360,13 @@ namespace VIMS.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-        public ActionResult  MyAccount()
+        public ActionResult MyAccount()
         {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ViewBag.Name = user.Name;
+            ViewBag.Username = user.UserName;
+            ViewBag.Email = user.Email;
+            ViewBag.Phone = user.PhoneNumber;
             return View();
         }
 
@@ -338,7 +381,7 @@ namespace VIMS.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -389,6 +432,6 @@ namespace VIMS.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

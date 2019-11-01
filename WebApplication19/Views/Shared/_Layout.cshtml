@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - VIMS</title>
     @Styles.Render("~/Content/css")
-
+    <style>
+        *{
+            font-family:'Century Gothic';
+        }
+        .form-control{
+            border-color: #6F747B !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container-scroller">
@@ -141,7 +148,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Manage/MyAccount">
+                            <a class="nav-link" href="/Manage/">
                                 <i class="mdi mdi-view-dashboard-outline menu-icon"><i class="fa fa-user text-dark" aria-hidden="true"></i></i>
                                 <span class="menu-title">My Account</span>
                             </a>

@@ -17,7 +17,7 @@ namespace VIMS.Models
     {
         public string Name { get; set; }
         public DateTime DateOfJoining { get; set; }
-        public string PhoneNumber { get; set; }
+        //public string PhoneNumber { get; set; }
         public ICollection<PolicyType> PolicyTypes { get; set; }
         public ICollection<VehicleInformation> VehicleInformations { get; set; }
         public ICollection<CustomerBillingInformation> CustomerBillingInformations { get; set; }

@@ -7,7 +7,7 @@
 <div class="card shadow-lg">
     <div class="card-body">
 
-        <h2>Create</h2>
+        <h1 style="font-family:Pacifico">New Vehicle</h1>
 
         @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
@@ -113,7 +113,7 @@
                             @Html.LabelFor(model => model.VehicleImages, htmlAttributes: new { @class = "control-label col-12" })
                             <div class="col-12">
                                 @*@Html.EditorFor(model => model.VehicleImages, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VehicleImages, "", new { @class = "text-danger" })*@
+                                    @Html.ValidationMessageFor(model => model.VehicleImages, "", new { @class = "text-danger" })*@
                                 <input type="file" class="form-control-file" name="file" multiple />
                                 @Html.ValidationMessageFor(model => model.VehicleImages, "", new { @class = "text-danger" })
 
@@ -147,3 +147,7 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

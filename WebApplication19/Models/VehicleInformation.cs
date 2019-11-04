@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using WebApplication19.Models;
 
 namespace VIMS.Models
 {
@@ -46,12 +47,14 @@ namespace VIMS.Models
         [Required]
         [DisplayName("Description")]
         public string VehicleDescription { get; set; }
-        [DisplayName("Images")]
-        public string VehicleImages { get; set; }
+        //public string VehicleImageId { get; set; }
+        //[DisplayName("Images")]
+        //public string VehicleImages { get; set; }
         [Required]
         public bool VehicleStatus { get; set; }
         public virtual ICollection<Estimate> Estimates { get; set; }
         public virtual ICollection<CustomerBillingInformation> CustomerBillingInformation { get; set; }
+        public virtual ICollection<VehicleImages> VehicleImages { get; set; }
 
     }
 

@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PolicyTypesController.cs" />
     <Compile Include="Controllers\UnauthorizedUserController.cs" />
+    <Compile Include="Models\VehicleImages.cs" />
     <Compile Include="Controllers\VehicleInformationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -443,6 +444,7 @@
     <Content Include="Views\Home\Testimonial.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Home\UserIndex.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,16 +9,19 @@ namespace VIMS.Controllers
     [Authorize(Roles = "Employee,Customer")]
     public class HomeController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
-        [AllowAnonymous]
         public ActionResult UserIndex()
         {
             return View();
         }
-
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

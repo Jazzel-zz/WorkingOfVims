@@ -4,14 +4,21 @@
     ViewBag.Title = "Details";
 }
 
-@*<h2>Details</h2>*@
-<p>
-    <i class="fa fa-caret-left" aria-hidden="true"></i>
-    @Html.ActionLink("Back to Results", "Index")
-</p>
+
 <div class="card shadow-lg">
     <div class="card-body">
-        <h4>Vehicle Details</h4>
+        <div class="row">
+            <div class="col-8">
+                <h1 style="font-family:Pacifico">Vehicle Details</h1>
+            </div>
+            <div class="col-4">
+                <div class="float-right">
+                    <a href="/Vehicleinformations/Edit/@Html.DisplayFor(model => model.VehicleInformationId)" class="btn btn-dark"><i class="fas fa-edit"></i></a>
+                    <a href="/Vehicleinformations/Delete/@Html.DisplayFor(model => model.VehicleInformationId)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+
         <hr />
         <div class="row">
             <div class="col-4"></div>
@@ -29,22 +36,20 @@
                         </div>
                     </div>
                     <hr />
-                    <h6 class="font-weight-bold">Images:</h6>
                     <div class="row">
-                        @{
-                            string[] data = ViewBag.Images.Split(':');
-                            int i = 0;
-                            <div class="row ml-2">
-                                @foreach (var image in data)
+                        <div class="col">
+                            <h6 class="font-weight-bold">Images:</h6>
+                            <div class="row m-3">
+                                @foreach (var item in Model.VehicleImages)
                                 {
-                                    i++;
-                                    <img src="@image" class="float-left ml-2 img-thumbnail ml-2" id="@i" width="200" height="180" />
+                                    <div class="m-2">
+                                        <a class="title" href="/VehicleInformations/Download/?p=@(item.Id + item.Extension)&d=@item.FileName">
+                                            <img src="../../Data/@(item.Id + item.Extension)" class="img-thumbnail float-left" style="width:200px;height:120px;" />
+                                        </a>
+                                    </div>
                                 }
-
                             </div>
-
-
-                        }
+                        </div>
                     </div>
                     <hr />
                     <h6 class="font-weight-bold">Basic Details:</h6>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using VIMS.Models;
+using WebApplication19.Models;
 
 namespace VIMS.Models
 {
@@ -62,6 +63,7 @@ namespace VIMS.Models
         public virtual DbSet<PolicyType> PolicyTypes { get; set; }
         public DbSet<ClaimDetail> ClaimDetails { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<VehicleImages> VehicleImages { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
     }
 }

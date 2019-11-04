@@ -85,8 +85,8 @@ namespace VIMS.Controllers
                 }
                 else
                 {
-                    _vehicleId = ":" + item.VehicleInformationId.ToString();
-                    _vehicleName = ":" + item.VehicleName;
+                    _vehicleId += ":" + item.VehicleInformationId.ToString();
+                    _vehicleName += ":" + item.VehicleName;
                 }
             }
             ViewBag.vehicleIds = _vehicleId;

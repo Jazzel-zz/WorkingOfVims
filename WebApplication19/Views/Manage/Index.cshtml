@@ -20,18 +20,39 @@
                                     <i class="mdi mdi-home-outline text-info float-right "><i class="fas fa-user-tie h3"></i></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab-vertical" data-toggle="tab" href="#profile-2" role="tab" aria-controls="profile-2" aria-selected="false">
-                                    My Vehicles
-                                    <i class="mdi mdi-account-outline text-danger float-right "><i class="fas fa-car h3" aria-hidden="true"></i></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab-vertical" data-toggle="tab" href="#contact-2" role="tab" aria-controls="contact-2" aria-selected="false">
-                                    Insurance Policies
-                                    <i class="mdi mdi-email-outline text-success float-right "><i class="fas fa-file-contract  h3"></i></i>
-                                </a>
-                            </li>
+                            @if (User.IsInRole("Employee"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab-vertical" data-toggle="tab" href="#policies" role="tab" aria-controls="contact-2" aria-selected="false">
+                                        Insurance Policies
+                                        <i class="mdi mdi-email-outline text-success float-right "><i class="fas fa-file-contract  h3"></i></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab-vertical" data-toggle="tab" href="#reports" role="tab" aria-controls="contact-2" aria-selected="false">
+                                        Reports
+                                        <i class="mdi mdi-email-outline text-danger float-right "><i class="fas fa-clipboard-list h3"></i></i>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Customer"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab-vertical" data-toggle="tab" href="#profile-2" role="tab" aria-controls="profile-2" aria-selected="false">
+                                        My Vehicles
+                                        <i class="mdi mdi-account-outline text-danger float-right "><i class="fas fa-car h3" aria-hidden="true"></i></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab-vertical" data-toggle="tab" href="#contact-2" role="tab" aria-controls="contact-2" aria-selected="false">
+                                        My Applications
+                                        <i class="mdi mdi-email-outline text-success float-right "><i class="fas fa-file-contract  h3"></i></i>
+                                    </a>
+                                </li>
+                            }
+
+
+
                         </ul>
                     </div>
                     <div class="col-8">
@@ -67,17 +88,17 @@
                                         </p>
                                     </dd>
                                     @*<dt>External Logins:</dt>
-                                        <dd>
-                                            @Model.Logins.Count [
-                                            @Html.ActionLink("Manage", "ManageLogins") ]
-                                        </dd>*@
+                <dd>
+                    @Model.Logins.Count [
+                    @Html.ActionLink("Manage", "ManageLogins") ]
+                </dd>*@
                                     @*
-                                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+                Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
-                                         See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                                            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+                 See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
-                                         Uncomment the following block after you have set up two-factor authentication
+                 Uncomment the following block after you have set up two-factor authentication
                                     *@
 
                                     <dt class="h4 mt-3">Phone Number:</dt>
@@ -86,11 +107,11 @@
                                         {
                                             @Model.PhoneNumber
                                             @*<p>&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;</p>
-                                                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                                {
-                                                    @Html.AntiForgeryToken()
-                                                    <input type="submit" value="Remove" class="btn-link" />
-                                                }*@
+                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Remove" class="btn-link" />
+                        }*@
                                         }
                                         else
                                         {
@@ -99,34 +120,33 @@
                                     </dd>
 
                                     @* <dt>Two-Factor Authentication:</dt>
-                                        <dd>
-                                            <p>
-                                                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                                                for details on setting up this ASP.NET application to support two-factor authentication.
-                                            </p>
-                                           @if (Model.TwoFactor)
-                                                {
-                                                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                                    {
-                                                        @Html.AntiForgeryToken()
-                                                        <text>Enabled
-                                                        <input type="submit" value="Disable" class="btn btn-link" />
-                                                        </text>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                                    {
-                                                        @Html.AntiForgeryToken()
-                                                        <text>Disabled
-                                                        <input type="submit" value="Enable" class="btn btn-link" />
-                                                        </text>
-                                                    }
-                                                }
-                                        </dd>*@
+                <dd>
+                    <p>
+                        There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                        for details on setting up this ASP.NET application to support two-factor authentication.
+                    </p>
+                   @if (Model.TwoFactor)
+                        {
+                            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>Enabled
+                                <input type="submit" value="Disable" class="btn btn-link" />
+                                </text>
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>Disabled
+                                <input type="submit" value="Enable" class="btn btn-link" />
+                                </text>
+                            }
+                        }
+                </dd>*@
                                 </dl>
-
                             </div>
                             <div class="tab-pane fade" id="profile-2" role="tabpanel" aria-labelledby="profile-tab-vertical">
                                 <div class="text-center">
@@ -156,19 +176,70 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var item in ids)
-                                            {
-                                                <tr>
-                                                    <td>@item</td>
-                                                </tr>
+                                            @{
+                                                if (ids.Length == names.Length)
+                                                {
+                                                    for (int i = 0; i < ids.Length; i++)
+                                                    {
+                                                        <tr>
+                                                            <td>@ids[i]</td>
+                                                            <td>@names[i]</td>
+                                                            <td>
+                                                                <a href="/Vehicleinformations/Details/@ids[i]/">View <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
                                             }
-                                            
+
+
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="contact-2" role="tabpanel" aria-labelledby="contact-tab-vertical">
                                 <h4>Contact us </h4>
+                                <p>
+                                    Feel free to contact us if you have any questions!
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-phone text-info"></i>
+                                    +123456789
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-email-outline text-success"></i>
+                                    contactus@example.com
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="contact-tab-vertical">
+                                <div class="text-center">
+                                    <div class="text-center h1" style="font-family:Pacifico">
+                                        Reports
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <p>
+                                    Feel free to contact us if you have any questions!
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-phone text-info"></i>
+                                    +123456789
+                                </p>
+                                <p>
+                                    <i class="mdi mdi-email-outline text-success"></i>
+                                    contactus@example.com
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="policies" role="tabpanel" aria-labelledby="contact-tab-vertical">
+                                <div class="text-center">
+                                    <div class="text-center h1" style="font-family:Pacifico">
+                                        Insurance Policies
+                                    </div>
+                                </div>
+                                <hr />
+
                                 <p>
                                     Feel free to contact us if you have any questions!
                                 </p>

@@ -100,6 +100,7 @@ namespace VIMS.Controllers
                 }
 
                 vehicleInformation.VehicleImages = fileDetails;
+                vehicleInformation.ApplicationUserId = User.Identity.GetUserId();
                 db.VehicleInformations.Add(vehicleInformation);
                 db.SaveChanges();
                 return RedirectToAction("Index");

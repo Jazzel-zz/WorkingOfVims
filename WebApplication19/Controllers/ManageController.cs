@@ -70,12 +70,35 @@ namespace VIMS.Controllers
             ViewBag.Username = user.UserName;
             ViewBag.Email = user.Email;
             ViewBag.Password = user.PasswordHash.Substring(0, 8) + "***************************";
-            var vehicleData = from item in db.VehicleInformations
-                              where item.ApplicationUserId == user.Id
-                              select item;
+            var vehicleData = (from item in db.VehicleInformations
+                               where item.ApplicationUserId == user.Id
+                               orderby item.VehicleInformationId descending
+                               select item).Take(5);
             string _vehicleId = "";
             string _vehicleName = "";
+            var policyData = (from item in db.CustomerPolicyRecords
+                              where item.ApplicationUserId == user.Id
+                              orderby item.Id descending
+                              select item).Take(5);
+            string _policyId = "";
+            string _policyName = "";
+            string _policyVehicleName = "";
 
+            foreach (var item in policyData)
+            {
+                if (_policyId == "" && _policyName == "")
+                {
+                    _policyId = item.Id.ToString();
+                    _policyName = item.PolicyNumber;
+                    _policyVehicleName = item.VehicleInformation.VehicleName;
+                }
+                else
+                {
+                    _policyId += ":" + item.Id.ToString();
+                    _policyName += ":" + item.PolicyNumber;
+                    _policyVehicleName += ":" + item.VehicleInformation.VehicleName;
+                }
+            }
             foreach (var item in vehicleData)
             {
                 if (_vehicleId == "" && _vehicleName == "")
@@ -91,6 +114,9 @@ namespace VIMS.Controllers
             }
             ViewBag.vehicleIds = _vehicleId;
             ViewBag.vehicleNames = _vehicleName;
+            ViewBag.policyIds = _policyId;
+            ViewBag.policyNumbers = _policyName;
+            ViewBag.policyVehicleNames = _policyVehicleName;
 
 
             var model = new IndexViewModel

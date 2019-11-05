@@ -88,17 +88,17 @@
                                         </p>
                                     </dd>
                                     @*<dt>External Logins:</dt>
-                <dd>
-                    @Model.Logins.Count [
-                    @Html.ActionLink("Manage", "ManageLogins") ]
-                </dd>*@
+                                        <dd>
+                                            @Model.Logins.Count [
+                                            @Html.ActionLink("Manage", "ManageLogins") ]
+                                        </dd>*@
                                     @*
-                Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+                                        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
 
-                 See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                    for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+                                         See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
-                 Uncomment the following block after you have set up two-factor authentication
+                                         Uncomment the following block after you have set up two-factor authentication
                                     *@
 
                                     <dt class="h4 mt-3">Phone Number:</dt>
@@ -107,11 +107,11 @@
                                         {
                                             @Model.PhoneNumber
                                             @*<p>&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;</p>
-                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Remove" class="btn-link" />
-                        }*@
+                                                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="submit" value="Remove" class="btn-link" />
+                                                }*@
                                         }
                                         else
                                         {
@@ -120,32 +120,32 @@
                                     </dd>
 
                                     @* <dt>Two-Factor Authentication:</dt>
-                <dd>
-                    <p>
-                        There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                        for details on setting up this ASP.NET application to support two-factor authentication.
-                    </p>
-                   @if (Model.TwoFactor)
-                        {
-                            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <text>Enabled
-                                <input type="submit" value="Disable" class="btn btn-link" />
-                                </text>
-                            }
-                        }
-                        else
-                        {
-                            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <text>Disabled
-                                <input type="submit" value="Enable" class="btn btn-link" />
-                                </text>
-                            }
-                        }
-                </dd>*@
+                                        <dd>
+                                            <p>
+                                                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                                for details on setting up this ASP.NET application to support two-factor authentication.
+                                            </p>
+                                           @if (Model.TwoFactor)
+                                                {
+                                                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <text>Enabled
+                                                        <input type="submit" value="Disable" class="btn btn-link" />
+                                                        </text>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <text>Disabled
+                                                        <input type="submit" value="Enable" class="btn btn-link" />
+                                                        </text>
+                                                    }
+                                                }
+                                        </dd>*@
                                 </dl>
                             </div>
                             <div class="tab-pane fade" id="profile-2" role="tabpanel" aria-labelledby="profile-tab-vertical">
@@ -177,40 +177,96 @@
                                         </thead>
                                         <tbody>
                                             @{
-                                                if (ids.Length == names.Length)
+                                                if (ids[0] == "" && names[0] == "")
                                                 {
-                                                    for (int i = 0; i < ids.Length; i++)
+                                                    <tr>
+                                                        <td colspan=3 class="text-center">No vehicles found !!</td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    if (ids.Length == names.Length)
                                                     {
-                                                        <tr>
-                                                            <td>@ids[i]</td>
-                                                            <td>@names[i]</td>
-                                                            <td>
-                                                                <a href="/Vehicleinformations/Details/@ids[i]/">View <i class="fa fa-caret-right" aria-hidden="true"></i></a>
-                                                            </td>
-                                                        </tr>
+                                                        for (int i = 0; i < ids.Length; i++)
+                                                        {
+                                                            <tr>
+                                                                <td>@ids[i]</td>
+                                                                <td>@names[i]</td>
+                                                                <td>
+                                                                    <a href="/Vehicleinformations/Details/@ids[i]/">View <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <a class="float-right mr-4" href="/Vehicleinformations/">View all <i class="fa fa-caret-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact-2" role="tabpanel" aria-labelledby="contact-tab-vertical">
+                                <div class="text-center">
+                                    <div class="text-center h1" style="font-family:Pacifico">
+                                        My Applications
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="offset-10 col">
+                                        <a href="/CustomerPolicyRecords/Create/" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <br />
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Policy Number</th>
+                                                <th>Vehicle Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+
+                                                string[] p_ids = ViewBag.policyIds.Split(':');
+                                                string[] p_numbers = ViewBag.policyNumbers.Split(':');
+                                                string[] p_vehicles = ViewBag.policyVehicleNames.Split(':');
+                                                if (p_ids[0] == "" && p_numbers[0] == "" && p_vehicles[0] == "")
+                                                {
+                                                    <tr>
+                                                        <td colspan=4 class="text-center">No applications found !!</td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    if (p_ids.Length == p_numbers.Length && p_numbers.Length == p_vehicles.Length)
+                                                    {
+                                                        for (int i = 0; i < p_ids.Length; i++)
+                                                        {
+                                                            <tr>
+                                                                <td>@p_ids[i]</td>
+                                                                <td>@p_numbers[i]</td>
+                                                                <td>@p_vehicles[i]</td>
+                                                                <td>
+                                                                    <a href="/CustomerPolicyRecords/Details/@ids[i]/">View <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     }
                                                 }
                                             }
 
-
-
                                         </tbody>
                                     </table>
+                                    <br />
+                                    <a class="float-right mr-4" href="/CustomerPolicyRecords/">View all <i class="fa fa-caret-right"></i></a>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="contact-2" role="tabpanel" aria-labelledby="contact-tab-vertical">
-                                <h4>Contact us </h4>
-                                <p>
-                                    Feel free to contact us if you have any questions!
-                                </p>
-                                <p>
-                                    <i class="mdi mdi-phone text-info"></i>
-                                    +123456789
-                                </p>
-                                <p>
-                                    <i class="mdi mdi-email-outline text-success"></i>
-                                    contactus@example.com
-                                </p>
                             </div>
                             <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="contact-tab-vertical">
                                 <div class="text-center">

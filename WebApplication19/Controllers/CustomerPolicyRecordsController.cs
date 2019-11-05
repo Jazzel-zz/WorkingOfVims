@@ -19,8 +19,9 @@ namespace WebApplication19.Controllers
         // GET: CustomerPolicyRecords
         public ActionResult Index()
         {
+            string userId = User.Identity.GetUserId();
             var customerPolicyRecords = db.CustomerPolicyRecords.Include(c => c.ApplicationUser).Include(c => c.PolicyType).Include(c => c.VehicleInformation);
-            return View(customerPolicyRecords.ToList());
+            return View(customerPolicyRecords.Where(find => find.ApplicationUserId == userId));
         }
 
         // GET: CustomerPolicyRecords/Details/5
@@ -92,13 +93,21 @@ namespace WebApplication19.Controllers
                     ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
                     customerPolicyRecord.ApplicationUserId = user.Id;
                     db.CustomerPolicyRecords.Add(customerPolicyRecord);
+                    Random generator = new Random();
+                    String generated_code = generator.Next(0, 999999).ToString("D6");
+                    CustomerBillingInformation billingInformation = new CustomerBillingInformation()
+                    {
+                        GetCustomerPolicyRecordId = customerPolicyRecord.Id,
+                        BillNumber = "B-" + generated_code,
+                    };
+                    db.CustomerBillingInformations.Add(billingInformation);
                     db.SaveChanges();
                     TempData["id"] = customerPolicyRecord.Id;
-                    return RedirectToAction("Index", "CustomerBillingInformations");
+                    return Redirect("/CustomerBillingInformations/Generate/"+ customerPolicyRecord.Id);
                 }
                 else
                 {
-                    return RedirectToAction("Login","Account");
+                    return RedirectToAction("Login", "Account");
 
                 }
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,6 +19,13 @@ namespace WebApplication19.Controllers
         public ActionResult Index()
         {
             var customerBillingInformations = db.CustomerBillingInformations.Find(TempData["id"]);
+            return View(customerBillingInformations);
+        }
+
+        public ActionResult Generate(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            var customerBillingInformations = db.CustomerBillingInformations.Where(find => find.GetCustomerPolicyRecordId == id || find.GetCustomerPolicyRecord == TempData["id"]);
             return View(customerBillingInformations);
         }
 

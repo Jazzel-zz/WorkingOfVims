@@ -93,17 +93,20 @@ namespace WebApplication19.Controllers
                     ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
                     customerPolicyRecord.ApplicationUserId = user.Id;
                     db.CustomerPolicyRecords.Add(customerPolicyRecord);
+                    db.SaveChanges();
+                    int bill_id = db.CustomerPolicyRecords.Count() + 1;
                     Random generator = new Random();
+                    bill_id -= 1;
                     String generated_code = generator.Next(0, 999999).ToString("D6");
                     CustomerBillingInformation billingInformation = new CustomerBillingInformation()
                     {
-                        GetCustomerPolicyRecordId = customerPolicyRecord.Id,
+                        CustomerPolicyRecordId = bill_id,
                         BillNumber = "B-" + generated_code,
                     };
                     db.CustomerBillingInformations.Add(billingInformation);
                     db.SaveChanges();
                     TempData["id"] = customerPolicyRecord.Id;
-                    return Redirect("/CustomerBillingInformations/Generate/"+ customerPolicyRecord.Id);
+                    return Redirect("/CustomerBillingInformations/Generate/" + customerPolicyRecord.Id);
                 }
                 else
                 {

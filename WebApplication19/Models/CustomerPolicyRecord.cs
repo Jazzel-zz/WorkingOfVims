@@ -28,8 +28,8 @@ namespace VIMS.Models
         [Required]
         [Display(Name = "Tracker for Vehicle")]
         public bool Tracker { get; set; }
-        public ICollection<CustomerBillingInformation> CustomerBillingInformation { get; set; }
-        public ICollection<ClaimDetail> ClaimDetails { get; set; }
+        public virtual ICollection<CustomerBillingInformation> CustomerBillingInformation { get; set; }
+        public virtual ICollection<ClaimDetail> ClaimDetails { get; set; }
 
     }
 }

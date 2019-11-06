@@ -25,7 +25,7 @@ namespace WebApplication19.Controllers
         public ActionResult Generate(int id)
         {
             string userId = User.Identity.GetUserId();
-            var customerBillingInformations = db.CustomerBillingInformations.Where(find => find.GetCustomerPolicyRecordId == id || find.GetCustomerPolicyRecord == TempData["id"]);
+            CustomerBillingInformation customerBillingInformations = db.CustomerBillingInformations.Where(find => find.CustomerPolicyRecordId == id).FirstOrDefault();
             return View(customerBillingInformations);
         }
 
@@ -65,7 +65,7 @@ namespace WebApplication19.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.GetCustomerPolicyRecordId);
+            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.CustomerPolicyRecordId);
             return View(customerBillingInformation);
         }
 
@@ -81,7 +81,7 @@ namespace WebApplication19.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.GetCustomerPolicyRecordId);
+            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.CustomerPolicyRecordId);
             return View(customerBillingInformation);
         }
 
@@ -98,7 +98,7 @@ namespace WebApplication19.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.GetCustomerPolicyRecordId);
+            ViewBag.GetCustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", customerBillingInformation.CustomerPolicyRecordId);
             return View(customerBillingInformation);
         }
 

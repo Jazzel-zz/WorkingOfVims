@@ -11,8 +11,8 @@ namespace VIMS.Models
         [Key]
         public int Id { get; set; }
         public string BillNumber { get; set; }
-        public int GetCustomerPolicyRecordId { get; set; }
-        public CustomerPolicyRecord GetCustomerPolicyRecord { get; set; }
+        public int CustomerPolicyRecordId { get; set; }
+        public virtual CustomerPolicyRecord CustomerPolicyRecord { get; set; }
 
     }
 }

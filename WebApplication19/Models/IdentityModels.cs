@@ -21,7 +21,6 @@ namespace VIMS.Models
         //public string PhoneNumber { get; set; }
         public ICollection<PolicyType> PolicyTypes { get; set; }
         public ICollection<VehicleInformation> VehicleInformations { get; set; }
-        public ICollection<CustomerBillingInformation> CustomerBillingInformations { get; set; }
         public ICollection<CustomerPolicyRecord> CustomerPolicyRecord { get; set; }
         public ICollection<Estimate> Estimates { get; set; }
         public ICollection<ClaimDetail> ClaimDetails { get; set; }

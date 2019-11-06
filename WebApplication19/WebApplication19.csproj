@@ -445,6 +445,7 @@
     <Content Include="Views\Shared\_UserLayout.cshtml" />
     <Content Include="Views\Home\UserIndex.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\CustomerBillingInformations\Generate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

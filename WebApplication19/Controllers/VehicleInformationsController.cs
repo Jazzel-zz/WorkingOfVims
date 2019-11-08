@@ -19,11 +19,11 @@ namespace VIMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: VehicleInformations
+        [Authorize(Roles = "Employee")]
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
             var vehicleInformations = db.VehicleInformations.Include(v => v.ApplicationUser);
-            return View(vehicleInformations.Where(find => find.ApplicationUserId == userId));
+            return View(vehicleInformations.ToList());
         }
 
         [HttpGet]

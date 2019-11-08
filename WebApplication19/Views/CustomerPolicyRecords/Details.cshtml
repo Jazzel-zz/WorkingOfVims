@@ -138,10 +138,12 @@
                                     double r_amount = (rate * vehicleRate) / 100;
                                     double trackerRate = Model.PolicyType.Tracker;
                                     double t_amount = (trackerRate * vehicleRate) / 1000;
-                                    
+                                    double total_amount = t_amount + r_amount;
+
                                 }
                                 <dt class="h5">Amount Charged: @rate % x @vehicleRate = @r_amount Rs</dt>
                                 <dt class="h5">Tracker: @trackerRate % x @vehicleRate = @t_amount Rs</dt>
+                                <dt class="h5">Total: @r_amount % x @t_amount = @total_amount Rs</dt>
                             </dl>
                         </div>
                     </div>

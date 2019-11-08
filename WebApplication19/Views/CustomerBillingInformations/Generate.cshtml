@@ -11,6 +11,7 @@
             <div class="card px-2">
                 <div class="card-body">
                     <div class="container-fluid">
+                        <br />
                         <h1 class="text-center" style="font-family:Pacifico;">Billing Information</h1>
                         <h3 class="text-right my-4">Invoice&nbsp;&nbsp;#@Html.DisplayFor(model => model.BillNumber)</h3>
                         <hr>
@@ -28,7 +29,7 @@
                     <div class="container-fluid d-flex justify-content-between">
                         <div class="col-lg-5 pl-0">
                             <p class="mb-0 mt-5">Invoice Date : @Model.CustomerPolicyRecord.PolicyDate.ToLongDateString()</p>
-                            @{ 
+                            @{
                                 DateTime start_date = Model.CustomerPolicyRecord.PolicyDate;
                                 string[] s_years = Model.CustomerPolicyRecord.PolicyType.Duration.Split(' ');
                                 int years = int.Parse(s_years[0]);
@@ -39,53 +40,101 @@
                     </div>
                     <div class="container-fluid mt-5 d-flex justify-content-center w-100">
                         <div class="table-responsive w-100">
-                            <table class="table">
+                            <h2 class="text-center mb-4" style="font-family:Pacifico">Vehicle Details</h2>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr class="bg-dark text-white">
+                                        <th>#</th>
+                                        <th>Vehicle</th>
+                                        <th class="text-left">Owner</th>
+                                        <th class="text-right">Model</th>
+                                        <th class="text-right">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-right">
+                                        <td class="text-left">1</td>
+                                        <td class="text-left">@Html.DisplayFor(model => model.CustomerPolicyRecord.VehicleInformation.VehicleName)</td>
+                                        <td class="text-left">@Html.DisplayFor(model => model.CustomerPolicyRecord.VehicleInformation.ApplicationUser.Name)</td>
+                                        <td>@Html.DisplayFor(model => model.CustomerPolicyRecord.VehicleInformation.VehicleModel)</td>
+                                        <td>@Html.DisplayFor(model => model.CustomerPolicyRecord.VehicleInformation.VehicleRate) Rs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br />
+                            <h2 class="text-center mb-4" style="font-family:Pacifico">Policy Details</h2>
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr class="bg-dark text-white">
                                         <th>#</th>
                                         <th>Description</th>
-                                        <th class="text-right">Quantity</th>
-                                        <th class="text-right">Unit cost</th>
+                                        <th class="text-right">Rate</th>
+                                        <th class="text-right">Discount applied</th>
                                         <th class="text-right">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="text-right">
                                         <td class="text-left">1</td>
-                                        <td class="text-left">Brochure Design</td>
-                                        <td>2</td>
-                                        <td>$20</td>
-                                        <td>$40</td>
+                                        <td class="text-left">@Html.DisplayFor(model => model.CustomerPolicyRecord.PolicyType.Type)</td>
+                                        <td>@Html.DisplayFor(model => model.CustomerPolicyRecord.PolicyType.Rate) %</td>
+                                        <td>@Html.DisplayFor(model => model.CustomerPolicyRecord.PolicyType.Offer) %</td>
+                                        @{
+                                            double rate = Model.CustomerPolicyRecord.PolicyType.Rate;
+                                            double vehicleRate = Model.CustomerPolicyRecord.VehicleInformation.VehicleRate;
+                                            double r_amount = (rate * vehicleRate) / 100;
+                                            double trackerRate = Model.CustomerPolicyRecord.PolicyType.Tracker;
+                                            double t_amount = (trackerRate * vehicleRate) / 1000;
+                                            double discount = Model.CustomerPolicyRecord.PolicyType.Offer;
+                                            double d_amount = 0;
+                                            double after_d_amount = 0;
+                                            double totalAmount = r_amount + t_amount;
+                                            double totalDiscountedAmount = 0;
+                                            if (discount != 0)
+                                            {
+                                                d_amount = (r_amount * discount) / 100;
+                                                after_d_amount = r_amount - d_amount;
+                                                totalDiscountedAmount = after_d_amount + t_amount;
+
+                                            }
+
+
+                                        }
+                                        <td>@r_amount Rs</td>
                                     </tr>
                                     <tr class="text-right">
-                                        <td class="text-left">2</td>
-                                        <td class="text-left">Web Design Packages(Template) - Basic</td>
-                                        <td>05</td>
-                                        <td>$25</td>
-                                        <td>$125</td>
-                                    </tr>
-                                    <tr class="text-right">
-                                        <td class="text-left">3</td>
-                                        <td class="text-left">Print Ad - Basic - Color</td>
-                                        <td>08</td>
-                                        <td>$500</td>
-                                        <td>$4000</td>
-                                    </tr>
-                                    <tr class="text-right">
-                                        <td class="text-left">4</td>
-                                        <td class="text-left">Down Coat</td>
-                                        <td>1</td>
-                                        <td>$5</td>
-                                        <td>$5</td>
+                                        <td class="text-left">1</td>
+                                        <td class="text-left">@Html.DisplayNameFor(model => model.CustomerPolicyRecord.PolicyType.Tracker)</td>
+                                        <td>@Html.DisplayFor(model => model.CustomerPolicyRecord.PolicyType.Tracker) %</td>
+                                        <td>- - -</td>
+                                        <td>@t_amount Rs</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="container-fluid mt-5 w-100">
-                        <p class="text-right mb-2">Sub - Total amount: $12,348</p>
-                        <p class="text-right">vat (10%) : $138</p>
-                        <h4 class="text-right mb-5">Total : $13,986</h4>
+                        @if (discount != 0)
+                        {
+                            <p class="text-right mb-2">
+                                Sub - Rate applied: ( @rate % x @vehicleRate Rs ) = @r_amount Rs
+                                <br /> Discount: ( @discount % of @r_amount Rs ) = @d_amount Rs
+                                <br /> Final Rate: ( @r_amount - @d_amount Rs ) = @after_d_amount Rs
+                                <br /> Tracker: ( @trackerRate % x @vehicleRate Rs ) = @t_amount Rs
+                            </p>
+                            <p class="text-right">Sum - ( @after_d_amount Rs + @t_amount Rs )</p>
+                            <h4 class="text-right mb-5 text-capitalize" style="font-weight:bold">Total : @totalDiscountedAmount Rs</h4>
+                        }
+                        else
+                        {
+                            <p class="text-right mb-2">
+                                Sub - Rate applied: @rate % x @vehicleRate Rs = @r_amount Rs
+                                <br /> Tracker: @trackerRate % x @vehicleRate Rs = @t_amount Rs
+                            </p>
+                            <p class="text-right">Sum - @r_amount Rs + @t_amount Rs</p>
+                            <h4 class="text-right mb-5 text-capitalize" style="font-weight:bold">Total : @totalAmount Rs</h4>
+                        }
+
                         <hr>
                     </div>
                     <div class="container-fluid w-100">

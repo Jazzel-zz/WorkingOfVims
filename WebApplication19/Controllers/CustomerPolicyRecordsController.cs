@@ -45,35 +45,7 @@ namespace WebApplication19.Controllers
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name");
             ViewBag.PolicyTypeId = new SelectList(db.PolicyTypes, "PolicyTypeId", "Type");
             ViewBag.VehicleInformationId = new SelectList(db.VehicleInformations, "VehicleInformationId", "VehicleCompany");
-            Random generator = new Random();
-            String generated_code = "";
-            var estimateCodes = from item in db.Estimates
-                                select item;
-            bool quit = false;
-            while (quit != true)
-            {
-                generated_code = generator.Next(0, 999999).ToString("D6");
-
-                if (estimateCodes.Count() == 0)
-                {
-                    quit = true;
-                    ViewBag.Code = "E-" + generated_code;
-
-                }
-                else
-                {
-                    foreach (var item in estimateCodes)
-                    {
-                        if (generated_code != item.EstimateNumber)
-                        {
-                            ViewBag.Code = "E-" + generated_code;
-                            quit = true;
-
-                        }
-                    }
-
-                }
-            }
+            ViewBag.Error = "";
             return View();
         }
 
@@ -84,37 +56,76 @@ namespace WebApplication19.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ApplicationUserId,PolicyNumber,VehicleInformationId,PolicyTypeId,PolicyDate,Tracker")] CustomerPolicyRecord customerPolicyRecord)
         {
-            if (ModelState.IsValid)
+            Random generator = new Random();
+            String generated_code = "";
+            var estimateCodes = from item in db.Estimates
+                                select item;
+            int checkVehicle = customerPolicyRecord.VehicleInformationId;
+            var checkData = from item in db.CustomerPolicyRecords
+                            where item.VehicleInformationId == checkVehicle
+                            select item;
+            string code = "";
+            bool quit = false;
+            while (quit != true)
             {
-                if (User.Identity.IsAuthenticated == true)
+                generated_code = generator.Next(0, 999999).ToString("D6");
+
+                if (estimateCodes.Count() == 0)
                 {
-                    var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-                    var userManager = new UserManager<ApplicationUser>(store);
-                    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-                    customerPolicyRecord.ApplicationUserId = user.Id;
-                    db.CustomerPolicyRecords.Add(customerPolicyRecord);
-                    db.SaveChanges();
-                    int bill_id = db.CustomerPolicyRecords.Count() + 1;
-                    Random generator = new Random();
-                    bill_id -= 1;
-                    String generated_code = generator.Next(0, 999999).ToString("D6");
-                    CustomerBillingInformation billingInformation = new CustomerBillingInformation()
-                    {
-                        CustomerPolicyRecordId = bill_id,
-                        BillNumber = "B-" + generated_code,
-                    };
-                    db.CustomerBillingInformations.Add(billingInformation);
-                    db.SaveChanges();
-                    TempData["id"] = customerPolicyRecord.Id;
-                    return Redirect("/CustomerBillingInformations/Generate/" + customerPolicyRecord.Id);
+                    quit = true;
+                   code = "E-" + generated_code;
+
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    foreach (var item in estimateCodes)
+                    {
+                        if (generated_code != item.EstimateNumber)
+                        {
+                            code = "E-" + generated_code;
+                            quit = true;
+
+                        }
+                    }
 
                 }
             }
+            if (checkData.Count() == 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    customerPolicyRecord.PolicyNumber = code;
 
+                    if (User.Identity.IsAuthenticated == true)
+                    {
+                        var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                        var userManager = new UserManager<ApplicationUser>(store);
+                        ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+                        customerPolicyRecord.ApplicationUserId = user.Id;
+                        db.CustomerPolicyRecords.Add(customerPolicyRecord);
+                        db.SaveChanges();
+                        int bill_id = db.CustomerPolicyRecords.Count() + 1;
+                        bill_id -= 1;
+                        generated_code = generator.Next(0, 999999).ToString("D6");
+                        CustomerBillingInformation billingInformation = new CustomerBillingInformation()
+                        {
+                            CustomerPolicyRecordId = bill_id,
+                            BillNumber = "B-" + generated_code,
+                        };
+                        db.CustomerBillingInformations.Add(billingInformation);
+                        db.SaveChanges();
+                        TempData["id"] = customerPolicyRecord.Id;
+                        return Redirect("/CustomerBillingInformations/Generate/" + customerPolicyRecord.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Account");
+
+                    }
+                }
+
+            }
+            ViewBag.Error = "Application with this vehicle is already registered !!";
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name", customerPolicyRecord.ApplicationUserId);
             ViewBag.PolicyTypeId = new SelectList(db.PolicyTypes, "PolicyTypeId", "Type", customerPolicyRecord.PolicyTypeId);
             ViewBag.VehicleInformationId = new SelectList(db.VehicleInformations, "VehicleInformationId", "VehicleCompany", customerPolicyRecord.VehicleInformationId);

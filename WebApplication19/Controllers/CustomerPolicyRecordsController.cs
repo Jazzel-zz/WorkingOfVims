@@ -184,6 +184,25 @@ namespace WebApplication19.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: CustomerPolicyRecords/GetPolicy/1
+        public JsonResult GetPolicy(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Result = "Error" });
+            }
+            try
+            {
+                int p_id = int.Parse(id);
+                return Json(db.PolicyTypes.Find(p_id), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

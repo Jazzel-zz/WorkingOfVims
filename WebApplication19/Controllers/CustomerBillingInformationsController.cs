@@ -11,6 +11,7 @@ using VIMS.Models;
 
 namespace WebApplication19.Controllers
 {
+    [Authorize]
     public class CustomerBillingInformationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

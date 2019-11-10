@@ -1,6 +1,14 @@
-﻿@{
+﻿@model dynamic
+@using WebApplication19.Models;
+@{
     ViewBag.Title = "Dashboard";
 }
+<div class="row">
+
+    @{
+        string[] data = ViewBag.MonthlyData.Split(':');
+    }
+</div>
 <div class="row">
     <div class="col-md-6 col-lg-3 grid-margin stretch-card">
         <div class="card">
@@ -68,21 +76,6 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <h4 class="card-title">Statistics</h4>
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                                id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            11 May 2018 <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate">
-                            <a class="dropdown-item" href="#">12 May 2018</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">13 May 2018</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">14 May 2018</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">15 May 2018</a>
-                        </div>
-                    </div>
                 </div>
                 <div id="statistics-legend" class="chartjs-legend mt-2 mb-4"></div>
                 <canvas id="statistics-chart"></canvas>
@@ -93,33 +86,13 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
-                    <h4 class="card-title">Traffic types</h4>
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                                id="dropdownMenuTraffic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Yearly <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuTraffic">
-                            <a class="dropdown-item" href="#">Monthly</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Weekly</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Daily</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Hourly</a>
-                        </div>
-                    </div>
+                    <h4 class="card-title" style="font-family:Pacifico">Policy applications</h4>
                 </div>
-                <canvas id="traffic-chart" class="mt-2"></canvas>
-                <div class="d-flex mt-5 align-items-center">
+                <canvas id="traffic-chart" class="mt-2" style="height:400px !important;"></canvas>
+                <div class="d-flex mt-5 mb-0 align-items-center">
                     <div id="traffic-legend" class="chartjs-legend traffic-legend mr-4"></div>
-                    <h3 class="mb-0 font-weight-normal">43909</h3>
+                    <h3 class="mb-0 font-weight-normal">@ViewBag.CountPolicy</h3>
                 </div>
-                <p class="mb-0 mt-4 font-weight-light">
-                    There is no denying the fact that the success of an advertisement lies mostly
-                    in the headline. The headline should attract the reader and make him read the
-                    rest.
-                </p>
             </div>
         </div>
     </div>
@@ -129,81 +102,20 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
-                    <h4 class="card-title">User tickets</h4>
-                    <div class="dropdown">
-                        <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="true">
-                            <i class="mdi mdi-dots-horizontal text-primary"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Details</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Export</a>
+                    <h1 class="card-title" style="font-family:Pacifico">Policies we provide !!</h1>
+                    <hr />
+                </div>
+                @foreach (var item in Model.Policies)
+                {
+                    <div class="preview-list">
+                        <div class="preview-item pt-0">
+                            <div class="preview-item-content flex-grow-1">
+                                <h6 style="font-weight:bold">@item.Type</h6>
+                                <p class="text-muted font-weight-light mb-0">@item.Description</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="preview-list">
-                    <div class="preview-item pt-0">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face7.jpg" alt="image" class="rounded-circle">
-                        </div>
-                        <div class="preview-item-content flex-grow-1">
-                            <h6>Franklin Anderson</h6>
-                            <p class="text-muted font-weight-light mb-0">6 Powerful Tips To Creating Testimonials</p>
-                        </div>
-                        <p class="mb-0">19 Jan 2018</p>
-                    </div>
-                </div>
-                <div class="preview-list">
-                    <div class="preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face6.jpg" alt="image" class="rounded-circle">
-                        </div>
-                        <div class="preview-item-content flex-grow-1">
-                            <h6>Louise Horton</h6>
-                            <p class="text-muted font-weight-light mb-0">Research In Advertising</p>
-                        </div>
-                        <p class="mb-0">27 Feb 2018</p>
-                    </div>
-                </div>
-                <div class="preview-list">
-                    <div class="preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face9.jpg" alt="image" class="rounded-circle">
-                        </div>
-                        <div class="preview-item-content flex-grow-1">
-                            <h6>Eric Garcia</h6>
-                            <p class="text-muted font-weight-light mb-0">Create a successful adevertisement</p>
-                        </div>
-                        <p class="mb-0">03 Feb 2018</p>
-                    </div>
-                </div>
-                <div class="preview-list">
-                    <div class="preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face10.jpg" alt="image" class="rounded-circle">
-                        </div>
-                        <div class="preview-item-content flex-grow-1">
-                            <h6>Amy Cole</h6>
-                            <p class="text-muted font-weight-light mb-0">Why Do You Need To Join Marketing Network</p>
-                        </div>
-                        <p class="mb-0">25 Sep 2018</p>
-                    </div>
-                </div>
-                <div class="preview-list">
-                    <div class="preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face8.jpg" alt="image" class="rounded-circle">
-                        </div>
-                        <div class="preview-item-content flex-grow-1">
-                            <h6>Russell Rodriquez</h6>
-                            <p class="text-muted font-weight-light mb-0">Effective Forms Of Advertising</p>
-                        </div>
-                        <p class="mb-0">29 Sep 2018</p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -234,109 +146,27 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Latest projects</h4>
+                <h4 class="card-title">Vehicle Informations</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Id</th>
+                                <th>Company</th>
                                 <th>Name</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Status</th>
-                                <th>Assigned to</th>
+                                <th>Model</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h6 class="font-weight-normal">Be Single Minded</h6>
-                                    <p class="mb-0 text-muted">Advertising Outdoors</p>
-                                </td>
-                                <td>
-                                    13 May 2018
-                                </td>
-                                <td>
-                                    19 Jun 2018
-                                </td>
-                                <td>
-                                    <label class="badge badge-success">Done</label>
-                                </td>
-                                <td>
-                                    Betty Howard
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="font-weight-normal">Buy Youtube Views</h6>
-                                    <p class="mb-0 text-muted">Promote With Postcards</p>
-                                </td>
-                                <td>
-                                    30 Oct 2018
-                                </td>
-                                <td>
-                                    17 Sep 2018
-                                </td>
-                                <td>
-                                    <label class="badge badge-primary">On hold</label>
-                                </td>
-                                <td>
-                                    Calvin Wood
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="font-weight-normal">The Importance Of Human Life</h6>
-                                    <p class="mb-0 text-muted">Illustration In Marketing Materials</p>
-                                </td>
-                                <td>
-                                    06 Dec 2018
-                                </td>
-                                <td>
-                                    31 Jul 2018
-                                </td>
-                                <td>
-                                    <label class="badge badge-warning">In progress</label>
-                                </td>
-                                <td>
-                                    Carl Dennis
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="font-weight-normal">Enlightenment Is Not Just One State</h6>
-                                    <p class="mb-0 text-muted">Promotional Advertising Specialty You Ve Waited Long Enough</p>
-                                </td>
-                                <td>
-                                    15 Jul 2018
-                                </td>
-                                <td>
-                                    19 Nov 2018
-                                </td>
-                                <td>
-                                    <label class="badge badge-danger">Cancelled</label>
-                                </td>
-                                <td>
-                                    Florence Holland
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 class="font-weight-normal">Feedback Management</h6>
-                                    <p class="mb-0 text-muted">Characteristics Of A Successful Advertisement</p>
-                                </td>
-                                <td>
-                                    04 Sep 2018
-                                </td>
-                                <td>
-                                    20 Jul 2018
-                                </td>
-                                <td>
-                                    <label class="badge badge-success">Done</label>
-                                </td>
-                                <td>
-                                    Abbie Hughes
-                                </td>
-                            </tr>
+                            @foreach (var item in Model.Vehicles)
+                            {
+                                <tr>
+                                    <td>@item.VehicleInformationId</td>
+                                    <td>@item.VehicleCompany</td>
+                                    <td>@item.VehicleName</td>
+                                    <td>@item.VehicleModel</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <div class="d-flex mt-4">
@@ -361,3 +191,85 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        if ($("#traffic-chart").length) {
+            var trafficData = {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    //data: [0, 2, 9, 6, 1, 5, 7, 2],
+                    data: [@data[0], @data[1], @data[2], @data[3], @data[4], @data[5], @data[6], @data[7], @data[8], @data[9], @data[10], @data[11]],
+                    backgroundColor: [
+                        '#fc5661'
+                    ],
+                    borderColor: [
+                        '#fc5661'
+                    ],
+                    borderWidth: 3,
+                    fill: 'false',
+                    label: "applications"
+                }
+                ]
+            };
+            var trafficOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                            color: 'transparent',
+                            zeroLineColor: '#eeeeee'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true,
+                            autoSkip: false,
+                            maxRotation: 0,
+                            stepSize: 1,
+                            min: 0,
+                            max: 10
+                        },
+                        gridLines: {
+                            drawBorder: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true
+                },
+                elements: {
+                    line: {
+                        tension: 0
+                    },
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+            var trafficChartCanvas = $("#traffic-chart").get(0).getContext("2d");
+            var trafficChart = new Chart(trafficChartCanvas, {
+                type: 'line',
+                data: trafficData,
+                options: trafficOptions
+            });
+            document.getElementById('traffic-legend').innerHTML = trafficChart.generateLegend();
+        }
+    </script>
+}

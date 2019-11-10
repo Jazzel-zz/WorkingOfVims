@@ -53,6 +53,7 @@ namespace VIMS.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
         }
 
         public virtual DbSet<VehicleInformation> VehicleInformations { get; set; }

@@ -12,6 +12,7 @@ using VIMS.Models;
 
 namespace WebApplication19.Controllers
 {
+    [Authorize]
     public class CustomerPolicyRecordsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -42,38 +43,11 @@ namespace WebApplication19.Controllers
         // GET: CustomerPolicyRecords/Create
         public ActionResult Create()
         {
+            ViewBag.SameVehiclePolicyError = "";
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name");
             ViewBag.PolicyTypeId = new SelectList(db.PolicyTypes, "PolicyTypeId", "Type");
             ViewBag.VehicleInformationId = new SelectList(db.VehicleInformations, "VehicleInformationId", "VehicleCompany");
-            Random generator = new Random();
-            String generated_code = "";
-            var estimateCodes = from item in db.Estimates
-                                select item;
-            bool quit = false;
-            while (quit != true)
-            {
-                generated_code = generator.Next(0, 999999).ToString("D6");
-
-                if (estimateCodes.Count() == 0)
-                {
-                    quit = true;
-                    ViewBag.Code = "E-" + generated_code;
-
-                }
-                else
-                {
-                    foreach (var item in estimateCodes)
-                    {
-                        if (generated_code != item.EstimateNumber)
-                        {
-                            ViewBag.Code = "E-" + generated_code;
-                            quit = true;
-
-                        }
-                    }
-
-                }
-            }
+            
             return View();
         }
 
@@ -84,35 +58,72 @@ namespace WebApplication19.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ApplicationUserId,PolicyNumber,VehicleInformationId,PolicyTypeId,PolicyDate,Tracker")] CustomerPolicyRecord customerPolicyRecord)
         {
-            if (ModelState.IsValid)
+            var searchData = db.CustomerPolicyRecords.Where(find => find.VehicleInformationId == customerPolicyRecord.VehicleInformationId).Count();
+            if (searchData == 0)
             {
-                if (User.Identity.IsAuthenticated == true)
+                if (ModelState.IsValid)
                 {
-                    var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-                    var userManager = new UserManager<ApplicationUser>(store);
-                    ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-                    customerPolicyRecord.ApplicationUserId = user.Id;
-                    db.CustomerPolicyRecords.Add(customerPolicyRecord);
-                    db.SaveChanges();
-                    int bill_id = db.CustomerPolicyRecords.Count() + 1;
-                    Random generator = new Random();
-                    bill_id -= 1;
-                    String generated_code = generator.Next(0, 999999).ToString("D6");
-                    CustomerBillingInformation billingInformation = new CustomerBillingInformation()
+                    if (User.Identity.IsAuthenticated == true)
                     {
-                        CustomerPolicyRecordId = bill_id,
-                        BillNumber = "B-" + generated_code,
-                    };
-                    db.CustomerBillingInformations.Add(billingInformation);
-                    db.SaveChanges();
-                    TempData["id"] = customerPolicyRecord.Id;
-                    return Redirect("/CustomerBillingInformations/Generate/" + customerPolicyRecord.Id);
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account");
+                        customerPolicyRecord.PolicyDate = DateTime.Now;
+                        var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                        var userManager = new UserManager<ApplicationUser>(store);
+                        ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
+                        Random generator = new Random();
+                        String generated_code = "";
+                        var estimateCodes = from item in db.Estimates
+                                            select item;
+                        bool quit = false;
+                        while (quit != true)
+                        {
+                            generated_code = generator.Next(0, 999999).ToString("D6");
 
+                            if (estimateCodes.Count() == 0)
+                            {
+                                quit = true;
+                                ViewBag.Code = "E-" + generated_code;
+
+                            }
+                            else
+                            {
+                                foreach (var item in estimateCodes)
+                                {
+                                    if (generated_code != item.EstimateNumber)
+                                    {
+                                        ViewBag.Code = "E-" + generated_code;
+                                        quit = true;
+
+                                    }
+                                }
+                            }
+                        }
+                        customerPolicyRecord.PolicyNumber = generated_code;
+                        customerPolicyRecord.ApplicationUserId = user.Id;
+                        db.CustomerPolicyRecords.Add(customerPolicyRecord);
+                        db.SaveChanges();
+                        int bill_id = db.CustomerPolicyRecords.Count() + 1;
+                        bill_id -= 1;
+                        generated_code = generator.Next(0, 999999).ToString("D6");
+                        CustomerBillingInformation billingInformation = new CustomerBillingInformation()
+                        {
+                            CustomerPolicyRecordId = bill_id,
+                            BillNumber = "B-" + generated_code,
+                        };
+                        db.CustomerBillingInformations.Add(billingInformation);
+                        db.SaveChanges();
+                        TempData["id"] = customerPolicyRecord.Id;
+                        return Redirect("/CustomerPolicyRecords/Details/" + customerPolicyRecord.Id);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Account");
+
+                    }
                 }
+            }
+            else
+            {
+                ViewBag.SameVehiclePolicyError = "Already applied with current vehicle";
             }
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name", customerPolicyRecord.ApplicationUserId);

@@ -26,7 +26,9 @@ namespace VIMS
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/b4").Include(
-                       "~/Content/bootstrap.css"));
+                       "~/Content/bootstrap.css",
+                       "~/Content/animate.css"
+                       ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -40,7 +42,8 @@ namespace VIMS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/horizontal-layout/style.css",
                       "~/Content/vendors/css/vendor.bundle.base.css",
-                      "~/Content/vendors/css/vendor.bundle.addons.css"
+                      "~/Content/vendors/css/vendor.bundle.addons.css",
+                      "~/Content/animate.css"
                       ));
         }
     }

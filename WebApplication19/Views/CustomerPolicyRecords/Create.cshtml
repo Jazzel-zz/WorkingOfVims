@@ -15,6 +15,11 @@
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @if (ViewBag.SameVehiclePolicyError != "")
+                {
+                    <p class="text-center text-danger h4">@ViewBag.SameVehiclePolicyError</p>
+                }
                 <div class="form-group" style="display:none;">
                     @Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-12" })
                     <div class="col-12">
@@ -26,7 +31,7 @@
                 <div class="form-group" style="display:none;">
                     @Html.LabelFor(model => model.PolicyNumber, htmlAttributes: new { @class = "control-label col-12" })
                     <div class="col-12">
-                        @Html.EditorFor(model => model.PolicyNumber, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.Code } })
+                        @Html.EditorFor(model => model.PolicyNumber, new { htmlAttributes = new { @class = "form-control", @Value = "das" } })
                         @Html.ValidationMessageFor(model => model.PolicyNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -48,19 +53,15 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
+                    <div class="col-12" id="updatePanel">
 
-                            </div>
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.PolicyDate, htmlAttributes: new { @class = "control-label col-12" })
                     <div class="col-12">
-                        @Html.EditorFor(model => model.PolicyDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.PolicyDate, new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Now.ToLongDateString(), @disabled = "disabled" } })
                         @Html.ValidationMessageFor(model => model.PolicyDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -93,6 +94,7 @@
 @section Scripts{
     <script>
         var getValue = 0;
+        var carPrice = 3000000;
         $(document).ready(function () {
             var getValue = $("#policySelect").val();
             $("#policySelect").on('change', function () {
@@ -100,20 +102,42 @@
                 console.log(getValue);
                 getData(getValue);
             });
+            $("#Tracker").on('change', function () {
+                var checkValue = $(this).prop('checked');
+                console.log(checkValue);
+                getData(getValue);
+            });
             console.log(getValue);
-            console.log("Fetching starts.......");
+            console.log("Fetching.......");
             getData(getValue);
-            console.log("Fetching ends.......");
         });
 
         function getData(P_id) {
-             $.ajax({
+            $.ajax({
                 url: '/CustomerPolicyRecords/GetPolicy/',
                 type: "GET",
                 dataType: "json",
                 data: { id: P_id },
                 success: function (data) {
                     console.log(data);
+                    var Rate = data.Rate;
+                    var Description = data.Description;
+                    var Offer = data.Offer;
+                    var Type = data.Type;
+                    var check = $("#Tracker").prop('checked');
+                    var Tracker = 0;
+                    if (check == true) {
+                        Tracker = data.Tracker;
+                    }
+                    else {
+                        Tracker = 0;
+                    }
+                    var Duration = data.Duration;
+                    var RateAmount = (Rate * carPrice) / 100;
+                    var trackerAmount = (Tracker * carPrice) / 1000;
+                    var TotalAmountCharged = trackerAmount + RateAmount;
+                    var updateData = "<div class='card animated fadeIn text-center'><div class='card-body'><div class='row'><div class='col'><h2 class='text-center' style='font-family:Pacifico'>Policy Details</h2></div></div><div class='row mt-4'><div class='col'>Type: " + Type + "<br />Rate amount: " + RateAmount + " Rs</div><div class='col'>Rate: " + Rate + " %<br />Tracker amount: " + trackerAmount + " Rs</div><div class='col'>Duration: " + Duration + "<br />Total amount: " + TotalAmountCharged + " Rs</div><div class='row'><div class='col'>Description: " + Description + "</div></div></div></div></div>"
+                    $("#updatePanel").html(updateData);
                 },
                 error: function (xhr, status, error) {
                     alert(xhr.responseText);

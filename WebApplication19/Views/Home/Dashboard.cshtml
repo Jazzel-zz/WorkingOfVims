@@ -7,17 +7,18 @@
 
     @{
         string[] data = ViewBag.MonthlyData.Split(':');
+        string[] v_data = ViewBag.MonthlyVehicleData.Split(':');
     }
 </div>
 <div class="row">
     <div class="col-md-6 col-lg-3 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
-                <h1 class="font-weight-light mb-4">18833</h1>
+                <h1 class="font-weight-light mb-4" style="font-family:Pacifico;">18833</h1>
                 <div class="d-flex flex-wrap align-items-center">
                     <div>
-                        <h4 class="font-weight-normal">Customers</h4>
-                        <p class="text-muted mb-0 font-weight-light">800 New customers</p>
+                        <h4 class="font-weight-normal">Users</h4>
+                        <p class="text-muted mb-0 font-weight-light">Currently Working</p>
                     </div>
                     <i class="mdi mdi-account-multiple icon-lg text-primary ml-auto">
                         <i class="fa fa-users"
@@ -28,13 +29,13 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
-                <h1 class="font-weight-light mb-4">5757</h1>
+                <h1 class="font-weight-light mb-4" style="font-family:Pacifico;">5757</h1>
                 <div class="d-flex flex-wrap align-items-center">
                     <div>
-                        <h4 class="font-weight-normal">Orders</h4>
-                        <p class="text-muted mb-0 font-weight-light">1600 Daily orders</p>
+                        <h4 class="font-weight-normal">Vehicles</h4>
+                        <p class="text-muted mb-0 font-weight-light">Registered</p>
                     </div>
                     <i class="mdi mdi-chart-pie icon-lg text-danger ml-auto"><i class="fa fa-chart-pie"></i></i>
                 </div>
@@ -42,13 +43,13 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
-                <h1 class="font-weight-light mb-4">28534</h1>
+                <h1 class="font-weight-light mb-4" style="font-family:Pacifico;">28534</h1>
                 <div class="d-flex flex-wrap align-items-center">
                     <div>
-                        <h4 class="font-weight-normal">Delivery</h4>
-                        <p class="text-muted mb-0 font-weight-light">760 New items</p>
+                        <h4 class="font-weight-normal">Policy</h4>
+                        <p class="text-muted mb-0 font-weight-light">Applications</p>
                     </div>
                     <i class="mdi mdi-car icon-lg text-info ml-auto"><i class="fas fa-car-side    "></i></i>
                 </div>
@@ -56,13 +57,13 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
-                <h1 class="font-weight-light mb-4">59450</h1>
+                <h1 class="font-weight-light mb-4" style="font-family:Pacifico;">59450</h1>
                 <div class="d-flex flex-wrap align-items-center">
                     <div>
                         <h4 class="font-weight-normal">Verified</h4>
-                        <p class="text-muted mb-0 font-weight-light">540 Verified users</p>
+                        <p class="text-muted mb-0 font-weight-light">Policies</p>
                     </div>
                     <i class="mdi mdi-verified icon-lg text-success ml-auto"><i class="fas fa-vote-yea    "></i></i>
                 </div>
@@ -72,10 +73,21 @@
 </div>
 <div class="row">
     <div class="col-md-7 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
-                    <h4 class="card-title">Statistics</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="card-title" style="font-family:Pacifico;font-size:35px;">Policy Registrations</h4>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col-12">
+                            <a href="#" class="btn btn-dark btn-sm float-right">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div id="statistics-legend" class="chartjs-legend mt-2 mb-4"></div>
                 <canvas id="statistics-chart"></canvas>
@@ -83,10 +95,21 @@
         </div>
     </div>
     <div class="col-md-5 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
-                    <h4 class="card-title" style="font-family:Pacifico">Policy applications</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="card-title" style="font-family:Pacifico;font-size:35px;">Billing Informations</h4>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col-12">
+                            <a href="#" class="btn btn-dark btn-sm float-right">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <canvas id="traffic-chart" class="mt-2" style="height:400px !important;"></canvas>
                 <div class="d-flex mt-5 mb-0 align-items-center">
@@ -99,12 +122,23 @@
 </div>
 <div class="row">
     <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
-                    <h1 class="card-title" style="font-family:Pacifico">Policies we provide !!</h1>
-                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="card-title" style="font-family:Pacifico;font-size:35px;">Policies we provide !!</h1>
+                        </div>
+                    </div>
+                    <div class="row float-right">
+                        <div class="col-12">
+                            <a href="#" class="btn btn-dark btn-sm float-right">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+               
                 @foreach (var item in Model.Policies)
                 {
                     <div class="preview-list">
@@ -120,33 +154,20 @@
         </div>
     </div>
     <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
+        <div class="card shadow-lg">
             <div class="card-body">
-                <h4 class="card-title">Analysis</h4>
-                <canvas id="analysis-chart"></canvas>
-                <div class="d-lg-flex justify-content-around mt-5">
-                    <div class="text-center mb-3 mb-lg-0">
-                        <h3 class="font-weight-light text-success">+40.02%</h3>
-                        <p class="text-muted mb-0">Growth</p>
+                <div class="row">
+                    <div class="col-10">
+                        <h4 class="card-title" style="font-family:Pacifico;font-size:35px;">Vehicle Information</h4>
                     </div>
-                    <div class="text-center mb-3 mb-lg-0">
-                        <h3 class="font-weight-light text-danger">2.5%</h3>
-                        <p class="text-muted mb-0">Refund</p>
-                    </div>
-                    <div class="text-center">
-                        <h3 class="font-weight-light text-primary">+23.65%</h3>
-                        <p class="text-muted mb-0">Online</p>
+                    <div class="col-2">
+                        <a href="#" class="btn btn-dark btn-sm float-right">
+                            <i class="fas fa-plus"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Vehicle Informations</h4>
+                
+                @*<canvas id="analysis-chart"></canvas>*@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -169,23 +190,6 @@
                             }
                         </tbody>
                     </table>
-                    <div class="d-flex mt-4">
-                        <nav class="ml-auto">
-                            <ul class="pagination pagination-flat pagination-primary">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="mdi mdi-chevron-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="mdi mdi-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </div>
@@ -271,5 +275,96 @@
             });
             document.getElementById('traffic-legend').innerHTML = trafficChart.generateLegend();
         }
+        if ($("#statistics-chart").length) {
+            var areaData = {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep","Oct","Nov","Dec"],
+                datasets: [{
+                    data: [@v_data[0], @v_data[1], @v_data[2], @v_data[3], @v_data[4], @v_data[5], @v_data[6], @v_data[7], @v_data[8], @v_data[9], @v_data[10], @v_data[11]],
+                    backgroundColor: [
+                        'rgba(68, 81, 158, .78)'
+                    ],
+                    borderColor: [
+                        'rgba(68, 81, 158, .78)'
+                    ],
+                    fillOpacity: .3,
+                    borderWidth: 1,
+                    fill: 'origin',
+                    label: "purchases"
+                },
+                {
+                    data: [@data[0], @data[1], @data[2], @data[3], @data[4], @data[5], @data[6], @data[7], @data[8], @data[9], @data[10], @data[11]],
+                    backgroundColor: [
+                        '#fc5661'
+                    ],
+                    borderColor: [
+                        '#fc5661'
+                    ],
+                    Opacity: .3,
+                    borderWidth: 1,
+                    fill: 'origin',
+                    label: "services"
+                }
+                ]
+            };
+            var areaOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                            color: 'transparent',
+                            zeroLineColor: '#eeeeee'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true,
+                            autoSkip: false,
+                            maxRotation: 0,
+                            stepSize: 1,
+                            min: 0,
+                            max: 10
+                        },
+                        gridLines: {
+                            drawBorder: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    enabled: true
+                },
+                elements: {
+                    line: {
+                        tension: .25
+                    },
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+            var salesChartCanvas = $("#statistics-chart").get(0).getContext("2d");
+            var salesChart = new Chart(salesChartCanvas, {
+                type: 'line',
+                data: areaData,
+                options: areaOptions
+            });
+            document.getElementById('statistics-legend').innerHTML = salesChart.generateLegend();
+        }
+
     </script>
 }

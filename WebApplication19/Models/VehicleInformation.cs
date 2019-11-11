@@ -47,8 +47,7 @@ namespace VIMS.Models
         [Required]
         [DisplayName("Description")]
         public string VehicleDescription { get; set; }
-        [Required]
-        public bool VehicleStatus { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public virtual ICollection<Estimate> Estimates { get; set; }
         public virtual ICollection<VehicleImages> VehicleImages { get; set; }
 

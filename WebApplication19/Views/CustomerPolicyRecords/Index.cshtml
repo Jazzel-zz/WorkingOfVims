@@ -49,10 +49,26 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.VehicleInformation.VehicleCompany)
                     </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Remove", "Delete", new { id = item.Id })
-                    </td>
+
+
+                    @using Microsoft.AspNet.Identity;
+                    @if (User.Identity.GetUserId() == item.ApplicationUserId)
+                    {
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                            | @Html.ActionLink("Remove", "Delete", new { id = item.Id })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                        </td>
+
+
+                    }
+
                 </tr>
             }
 

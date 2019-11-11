@@ -21,9 +21,24 @@ namespace VIMS.Controllers
         // GET: VehicleInformations
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
-            var vehicleInformations = db.VehicleInformations.Include(v => v.ApplicationUser);
-            return View(vehicleInformations.Where(find =>find.ApplicationUserId == userId));
+            if (User.IsInRole("Employee"))
+            {
+                var vehicleInformations = db.VehicleInformations.ToList();
+                return View(vehicleInformations);
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                string userId = User.Identity.GetUserId();
+                var vehicleInformations = db.VehicleInformations.Include(v => v.ApplicationUser);
+                return View(vehicleInformations.Where(find => find.ApplicationUserId == userId));
+            }
+            else
+            {
+                return HttpNotFound();
+
+            }
+
+          
         }
 
         [HttpGet]

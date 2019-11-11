@@ -123,7 +123,7 @@ namespace VIMS.Controllers
 
             dynamic VIMSINFOMODEL = new ExpandoObject();
             VIMSINFOMODEL.Vehicles = db.VehicleInformations.OrderByDescending(find => find.VehicleInformationId).Take(5);
-            VIMSINFOMODEL.Policies = db.PolicyTypes.OrderByDescending(find => find.PolicyTypeId).Take(5);
+            VIMSINFOMODEL.Policies = db.PolicyTypes.OrderByDescending(find => find.PolicyTypeId).Take(3);
             VIMSINFOMODEL.Applications = db.CustomerPolicyRecords.OrderByDescending(find => find.Id).Take(5);
             VIMSINFOMODEL.Expenses = db.Expenses.OrderByDescending(find => find.ExpenseId).Take(5);
             return View(VIMSINFOMODEL);

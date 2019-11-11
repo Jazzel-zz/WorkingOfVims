@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -39,7 +40,37 @@ namespace WebApplication19.Controllers
         // GET: ClaimDetails/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId");
+            ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "PolicyNumber");
+            return View();
+        }
+
+        public JsonResult GetPolicyDetail(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Result = "Error" });
+            }
+            try
+            {
+                int p_id = int.Parse(id);
+                var data = db.CustomerPolicyRecords.Find(p_id);
+                Debugger.NotifyOfCrossThreadDependency();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+        // POST: ClaimDetails/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ClaimDetailId,ClaimNumber,CustomerPolicyRecordId,PlaceOfAccident,DateOfAccident,InsuredAmount,ClaimableAmount")] ClaimDetail claimDetail)
+        {
             Random generator = new Random();
             String generated_code = "";
             var estimateCodes = from item in db.Estimates
@@ -69,18 +100,9 @@ namespace WebApplication19.Controllers
 
                 }
             }
-            return View();
-        }
-
-        // POST: ClaimDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClaimDetailId,ClaimNumber,CustomerPolicyRecordId,PlaceOfAccident,DateOfAccident,InsuredAmount,ClaimableAmount")] ClaimDetail claimDetail)
-        {
             if (ModelState.IsValid)
             {
+                claimDetail.ClaimNumber = generated_code;
                 db.ClaimDetails.Add(claimDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");

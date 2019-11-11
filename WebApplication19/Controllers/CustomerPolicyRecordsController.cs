@@ -20,9 +20,23 @@ namespace WebApplication19.Controllers
         // GET: CustomerPolicyRecords
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
-            var customerPolicyRecords = db.CustomerPolicyRecords.Include(c => c.ApplicationUser).Include(c => c.PolicyType).Include(c => c.VehicleInformation);
-            return View(customerPolicyRecords.Where(find => find.ApplicationUserId == userId));
+            if (User.IsInRole("Employee"))
+            {
+                var customerPolicyRecords = db.CustomerPolicyRecords.ToList();
+                return View(customerPolicyRecords);
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                string userId = User.Identity.GetUserId();
+                var customerPolicyRecords = db.CustomerPolicyRecords.Include(c => c.ApplicationUser).Include(c => c.PolicyType).Include(c => c.VehicleInformation);
+                return View(customerPolicyRecords.Where(find => find.ApplicationUserId == userId));
+            }
+            else
+            {
+                return HttpNotFound();
+
+            }
+            
         }
 
         // GET: CustomerPolicyRecords/Details/5

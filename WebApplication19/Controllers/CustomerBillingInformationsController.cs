@@ -19,8 +19,22 @@ namespace WebApplication19.Controllers
         // GET: CustomerBillingInformations
         public ActionResult Index()
         {
-            var customerBillingInformations = db.CustomerBillingInformations.Find(TempData["id"]);
-            return View(customerBillingInformations);
+            if (User.IsInRole("Employee"))
+            {
+                var customerBillingInformations = db.CustomerBillingInformations.ToList();
+                return View(customerBillingInformations);
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                string userId = User.Identity.GetUserId();
+                var customerBillingInformations = db.CustomerBillingInformations.Where(find => find.CustomerPolicyRecord.ApplicationUserId == userId);
+                return View(customerBillingInformations);
+            }
+            else
+            {
+                return HttpNotFound();
+
+            }
         }
 
         public ActionResult Generate(int id)

@@ -126,6 +126,7 @@ namespace VIMS.Controllers
             VIMSINFOMODEL.Policies = db.PolicyTypes.OrderByDescending(find => find.PolicyTypeId).Take(3);
             VIMSINFOMODEL.Applications = db.CustomerPolicyRecords.OrderByDescending(find => find.Id).Take(5);
             VIMSINFOMODEL.Expenses = db.Expenses.OrderByDescending(find => find.ExpenseId).Take(5);
+            VIMSINFOMODEL.Claims = db.ClaimDetails.OrderByDescending(find => find.ClaimDetailId).Take(5);
             return View(VIMSINFOMODEL);
 
         }

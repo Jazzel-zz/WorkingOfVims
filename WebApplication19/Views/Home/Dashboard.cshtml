@@ -138,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 @foreach (var item in Model.Policies)
                 {
                     <div class="preview-list">
@@ -161,16 +161,55 @@
                         <h4 class="card-title" style="font-family:Pacifico;font-size:35px;">Vehicle Information</h4>
                     </div>
                     <div class="col-2">
+                        <a href="/ClaimDetails/" class="btn btn-dark btn-sm float-right">
+                            <i class="fas fa-binoculars"></i>
+                        </a>
+                    </div>
+                </div>
+                @*<canvas id="analysis-chart"></canvas>*@
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Claim Number</th>
+                                <th>Claimed By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Claims)
+                            {
+                                <tr>
+                                    <td>@item.ClaimDetailId</td>
+                                    <td>@item.ClaimNumber</td>
+                                    <td>@item.CustomerPolicyRecord.ApplicationUser.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                        <h4 class="card-title" style="font-family:Pacifico;font-size:35px;">Vehicle Information</h4>
+                    </div>
+                    <div class="col-2">
                         <a href="/VehicleInformations/" class="btn btn-dark btn-sm float-right">
                             <i class="fas fa-binoculars"></i>
                         </a>
                     </div>
                 </div>
-                
                 @*<canvas id="analysis-chart"></canvas>*@
                 <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
                             <tr>
                                 <th>Id</th>
                                 <th>Company</th>
@@ -191,6 +230,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

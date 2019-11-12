@@ -72,13 +72,21 @@ namespace VIMS.Controllers
             ViewBag.Password = user.PasswordHash.Substring(0, 8) + "***************************";
             var vehicleData = (from item in db.VehicleInformations
                                where item.ApplicationUserId == user.Id
-                               orderby item.VehicleInformationId descending
+                               orderby item.VehicleInformationId ascending
+                               select item).Take(5);
+            var claimData = (from item in db.ClaimDetails
+                               where item.CustomerPolicyRecord.ApplicationUserId == user.Id
+                               orderby item.ClaimDetailId ascending
+                             select item).Take(5);
+            var expenseData = (from item in db.Expenses
+                               where item.ApplicationUserId == user.Id
+                               orderby item.ExpenseId ascending
                                select item).Take(5);
             string _vehicleId = "";
             string _vehicleName = "";
             var policyData = (from item in db.CustomerPolicyRecords
                               where item.ApplicationUserId == user.Id
-                              orderby item.Id descending
+                              orderby item.Id ascending
                               select item).Take(5);
             string _policyId = "";
             string _policyName = "";
@@ -99,6 +107,44 @@ namespace VIMS.Controllers
                     _policyVehicleName += ":" + item.VehicleInformation.VehicleName;
                 }
             }
+            string _claimId = "";
+            string _claimNumber = "";
+            string _claimVehicleName = "";
+
+            string _expenseId = "";
+            string _expenseType = "";
+            string _expenseDate = "";
+
+            foreach (var item in expenseData)
+            {
+                if (_expenseId == "" && _expenseType == "" && _expenseDate == "")
+                {
+                    _expenseId = item.ExpenseId.ToString();
+                    _expenseType = item.TypeOfExpense;
+                    _expenseDate = item.DateOfExpense.ToLongDateString();
+                }
+                else
+                {
+                    _expenseId += ":" + item.ExpenseId.ToString();
+                    _expenseType += ":" + item.TypeOfExpense;
+                    _expenseDate += ":" + item.DateOfExpense.ToLongDateString();
+                }
+            }
+            foreach (var item in claimData)
+            {
+                if (_claimId == "" && _claimNumber == "" && _claimVehicleName == "")
+                {
+                    _claimId = item.ClaimDetailId.ToString();
+                    _claimNumber = item.ClaimNumber;
+                    _claimVehicleName = item.CustomerPolicyRecord.VehicleInformation.VehicleName;
+                }
+                else
+                {
+                    _claimId += ":" + item.ClaimDetailId.ToString();
+                    _claimNumber += ":" + item.ClaimNumber;
+                    _claimVehicleName += ":" + item.CustomerPolicyRecord.VehicleInformation.VehicleName;
+                }
+            }
             foreach (var item in vehicleData)
             {
                 if (_vehicleId == "" && _vehicleName == "")
@@ -117,6 +163,12 @@ namespace VIMS.Controllers
             ViewBag.policyIds = _policyId;
             ViewBag.policyNumbers = _policyName;
             ViewBag.policyVehicleNames = _policyVehicleName;
+            ViewBag.claimIds = _claimId;
+            ViewBag.claimNumbers = _claimNumber;
+            ViewBag.claimVehicleNames = _claimVehicleName;
+            ViewBag.expenseTypes = _expenseType;
+            ViewBag.expenseDates = _expenseDate;
+            ViewBag.expenseIds = _expenseId;
 
 
             var model = new IndexViewModel

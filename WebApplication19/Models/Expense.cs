@@ -20,8 +20,8 @@ namespace VIMS.Models
         [Required]
         [DisplayName("Amount Costed")]
         public double AmountOfExpense { get; set; }
-        //[Required]
-        //public string ApplicationUserId { get; set; }
-        //public ApplicationUser ApplicationUser { get; set; }
+        [Required]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

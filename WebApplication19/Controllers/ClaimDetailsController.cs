@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,6 +12,7 @@ using VIMS.Models;
 
 namespace WebApplication19.Controllers
 {
+    [Authorize]
     public class ClaimDetailsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,8 +20,23 @@ namespace WebApplication19.Controllers
         // GET: ClaimDetails
         public ActionResult Index()
         {
-            var claimDetails = db.ClaimDetails.Include(c => c.CustomerPolicyRecord);
-            return View(claimDetails.ToList());
+            if (User.IsInRole("Employee"))
+            {
+                var claimDetails = db.ClaimDetails.ToList();
+                return View(claimDetails);
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                string userId = User.Identity.GetUserId();
+                var claimDetails = db.ClaimDetails.Include(c => c.CustomerPolicyRecord);
+
+                return View(claimDetails.Where(find => find.CustomerPolicyRecord.ApplicationUserId == userId));
+            }
+            else
+            {
+                return HttpNotFound();
+
+            }
         }
 
         // GET: ClaimDetails/Details/5
@@ -40,29 +57,12 @@ namespace WebApplication19.Controllers
         // GET: ClaimDetails/Create
         public ActionResult Create()
         {
+            ViewBag.SameVehiclePolicyError = "";
             ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "PolicyNumber");
             return View();
         }
 
-        public JsonResult GetPolicyDetail(string id)
-        {
-            if (String.IsNullOrEmpty(id))
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Result = "Error" });
-            }
-            try
-            {
-                int p_id = int.Parse(id);
-                var data = db.CustomerPolicyRecords.Find(p_id);
-                Debugger.NotifyOfCrossThreadDependency();
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Result = "ERROR", Message = ex.Message });
-            }
-        }
+
 
         // POST: ClaimDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -71,44 +71,52 @@ namespace WebApplication19.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ClaimDetailId,ClaimNumber,CustomerPolicyRecordId,PlaceOfAccident,DateOfAccident,InsuredAmount,ClaimableAmount")] ClaimDetail claimDetail)
         {
-            Random generator = new Random();
-            String generated_code = "";
-            var estimateCodes = from item in db.Estimates
-                                select item;
-            bool quit = false;
-            while (quit != true)
+            var searchData = db.ClaimDetails.Where(find => find.CustomerPolicyRecordId == claimDetail.CustomerPolicyRecordId).Count();
+            if (searchData == 0)
             {
-                generated_code = generator.Next(0, 999999).ToString("D6");
-
-                if (estimateCodes.Count() == 0)
+                Random generator = new Random();
+                String generated_code = "";
+                var estimateCodes = from item in db.Estimates
+                                    select item;
+                bool quit = false;
+                while (quit != true)
                 {
-                    quit = true;
-                    ViewBag.Code = "E-" + generated_code;
+                    generated_code = generator.Next(0, 999999).ToString("D6");
 
-                }
-                else
-                {
-                    foreach (var item in estimateCodes)
+                    if (estimateCodes.Count() == 0)
                     {
-                        if (generated_code != item.EstimateNumber)
-                        {
-                            ViewBag.Code = "E-" + generated_code;
-                            quit = true;
+                        quit = true;
+                        ViewBag.Code = "E-" + generated_code;
 
-                        }
                     }
+                    else
+                    {
+                        foreach (var item in estimateCodes)
+                        {
+                            if (generated_code != item.EstimateNumber)
+                            {
+                                ViewBag.Code = "E-" + generated_code;
+                                quit = true;
 
+                            }
+                        }
+
+                    }
+                }
+                if (ModelState.IsValid)
+                {
+                    claimDetail.ClaimNumber = generated_code;
+
+                    db.ClaimDetails.Add(claimDetail);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-            if (ModelState.IsValid)
+            else
             {
-                claimDetail.ClaimNumber = generated_code;
-                db.ClaimDetails.Add(claimDetail);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.SameVehiclePolicyError = "Already claimed with current policy";
             }
-
-            ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "ApplicationUserId", claimDetail.CustomerPolicyRecordId);
+            ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "PolicyNumber", claimDetail.CustomerPolicyRecordId);
             return View(claimDetail);
         }
 
@@ -169,6 +177,37 @@ namespace WebApplication19.Controllers
             db.ClaimDetails.Remove(claimDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: ClaimDetails/GetPolicyDetail/1
+        public JsonResult GetPolicyDetail(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Result = "Error" });
+            }
+            try
+            {
+                int p_id = int.Parse(id);
+                var customerPolicyRecords = db.CustomerPolicyRecords.Include(c => c.ApplicationUser).Include(c => c.PolicyType).Include(c => c.VehicleInformation).Include(c => c.CustomerBillingInformation);
+
+                var data = (from item in db.CustomerPolicyRecords
+                            where item.Id == p_id
+                            select new
+                            {
+                                Number = item.PolicyNumber,
+                                Date = (DateTime)item.PolicyDate,
+                                Type = item.PolicyType.Type,
+                                Vehicle = item.VehicleInformation.VehicleName,
+                                Description = item.PolicyType.Description,
+                            }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -209,7 +209,7 @@ namespace WebApplication19.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: CustomerPolicyRecords/GetPolicy/1
+        // GET: CustomerPolicyRecords/GetPolicy/1
         public JsonResult GetPolicy(string id)
         {
             if (String.IsNullOrEmpty(id))

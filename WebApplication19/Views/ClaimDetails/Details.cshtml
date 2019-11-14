@@ -4,63 +4,68 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="card shadow-lg">
+    <div class="card-body">
 
-<div>
-    <h4>ClaimDetail</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerPolicyRecord.ApplicationUserId)
-        </dt>
+        <h2>Details</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.CustomerPolicyRecord.ApplicationUserId)
-        </dd>
+        <div>
+            <h4>ClaimDetail</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CustomerPolicyRecord.ApplicationUserId)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClaimNumber)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CustomerPolicyRecord.)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClaimNumber)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ClaimNumber)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlaceOfAccident)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ClaimNumber)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlaceOfAccident)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PlaceOfAccident)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfAccident)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PlaceOfAccident)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateOfAccident)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateOfAccident)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InsuredAmount)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateOfAccident)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.InsuredAmount)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InsuredAmount)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClaimableAmount)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.InsuredAmount)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClaimableAmount)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ClaimableAmount)
+                </dt>
 
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.ClaimableAmount)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClaimDetailId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

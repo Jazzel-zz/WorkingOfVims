@@ -8,6 +8,7 @@
     @{
         string[] data = ViewBag.MonthlyData.Split(':');
         string[] v_data = ViewBag.MonthlyVehicleData.Split(':');
+        
     }
 </div>
 <div class="row">
@@ -329,7 +330,7 @@
                     fillOpacity: .3,
                     borderWidth: 1,
                     fill: 'origin',
-                    label: "purchases"
+                    label: "vehicle registrations"
                 },
                 {
                     data: [@data[0], @data[1], @data[2], @data[3], @data[4], @data[5], @data[6], @data[7], @data[8], @data[9], @data[10], @data[11]],
@@ -342,7 +343,7 @@
                     Opacity: .3,
                     borderWidth: 1,
                     fill: 'origin',
-                    label: "services"
+                    label: "policy applications"
                 }
                 ]
             };

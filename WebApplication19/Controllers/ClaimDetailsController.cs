@@ -59,6 +59,7 @@ namespace WebApplication19.Controllers
         {
             ViewBag.SameVehiclePolicyError = "";
             ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "PolicyNumber");
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name");
             return View();
         }
 
@@ -69,7 +70,7 @@ namespace WebApplication19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClaimDetailId,ClaimNumber,CustomerPolicyRecordId,PlaceOfAccident,DateOfAccident,InsuredAmount,ClaimableAmount")] ClaimDetail claimDetail)
+        public ActionResult Create([Bind(Include = "ClaimDetailId,ClaimNumber,CustomerPolicyRecordId,PlaceOfAccident,DateOfAccident,InsuredAmount,ClaimableAmount,ApplicationUserId")] ClaimDetail claimDetail)
         {
             var searchData = db.ClaimDetails.Where(find => find.CustomerPolicyRecordId == claimDetail.CustomerPolicyRecordId).Count();
             if (searchData == 0)
@@ -103,10 +104,11 @@ namespace WebApplication19.Controllers
 
                     }
                 }
+
                 if (ModelState.IsValid)
                 {
+                    claimDetail.ApplicationUserId = User.Identity.GetUserId();
                     claimDetail.ClaimNumber = generated_code;
-
                     db.ClaimDetails.Add(claimDetail);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -117,6 +119,7 @@ namespace WebApplication19.Controllers
                 ViewBag.SameVehiclePolicyError = "Already claimed with current policy";
             }
             ViewBag.CustomerPolicyRecordId = new SelectList(db.CustomerPolicyRecords, "Id", "PolicyNumber", claimDetail.CustomerPolicyRecordId);
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name", claimDetail.ApplicationUserId);
             return View(claimDetail);
         }
 

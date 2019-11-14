@@ -20,9 +20,9 @@ namespace VIMS.Models
         [ForeignKey("CustomerPolicyRecord")]
         public int CustomerPolicyRecordId { get; set; }
         public CustomerPolicyRecord CustomerPolicyRecord { get; set; }
-        //[Required]
-        //public string ApplicationUserId { get; set; }
-        //public virtual ApplicationUser ApplicationUser { get; set; }
+        [Required]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         [Required]
         [DisplayName("Place of Accident")]
         public string PlaceOfAccident { get; set; }

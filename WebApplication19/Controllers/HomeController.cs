@@ -10,12 +10,10 @@ using VIMS.Models;
 
 namespace VIMS.Controllers
 {
-    [Authorize(Roles = "Employee,Customer")]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -24,6 +22,7 @@ namespace VIMS.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Employee,Customer")]
         public ActionResult Dashboard()
         {
             DateTime today = DateTime.Today;
@@ -144,6 +143,11 @@ namespace VIMS.Controllers
             return View();
         }
         public ActionResult Testimonial()
+        {
+
+            return View();
+        }
+        public ActionResult SiteMap()
         {
 
             return View();

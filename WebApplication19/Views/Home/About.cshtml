@@ -1,19 +1,46 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "ABOUT US";
+    ViewBag.Message = "What we are !!";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 
 }
 <div class="qodef-full-width-inner">
     <div data-qodef-parallax-speed="1"
-         class="vc_row wpb_row vc_row-fluid qodef-section vc_custom_1448021633492 qodef-content-aligment-left"
+         class="vc_row wpb_row vc_row-fluid qodef-section vc_custom_1448021633492"
          style="">
-        <div class="clearfix qodef-full-section-inner">
-            <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-md-6">
+        <div class="clearfix qodef-full-section-inner w-100">
+            <div class="wpb_column vc_column_container">
                 <div class="vc_column-inner">
-                    <h2>@ViewBag.Title.</h2>
-                    <h3>@ViewBag.Message</h3>
+                    <div class="container-fluid p-0">
+                        <div class="row mt-4 mb-0 pb-0 bg-danger">
+                            <div class="col">
+                                <h2 class="text-style">@ViewBag.Title</h2>
+                            </div>
+                        </div>
+                        <hr class="styled" />
+                        <div class="row pt-0 mt-0">
+                            <div class="col h-100 p-0">
+                                <table class="bg-danger h-100">
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-baseline">baseline</td>
+                                            <td class="align-top">top</td>
+                                            <td class="align-middle">middle</td>
+                                            <td class="align-bottom">bottom</td>
+                                            <td class="align-text-top">text-top</td>
+                                            <td class="align-text-bottom">text-bottom</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @*<h3 style="font-family:Pacifico">@ViewBag.Message</h3>
+                                <p>Use this area to provide additional information.</p>*@
+                            </div>
+                            <div class="col shadow-lg p-0 h-100">
+                                <img src="~/Content/images/6799086-infinity-car-wallpapers.jpg" class="img-res" />
+                            </div>
+                        </div>
+                    </div>
 
-                    <p>Use this area to provide additional information.</p>
                 </div>
             </div>
         </div>

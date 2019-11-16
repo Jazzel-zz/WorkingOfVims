@@ -11,6 +11,7 @@ using VIMS.Models;
 
 namespace WebApplication19.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class ExpensesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

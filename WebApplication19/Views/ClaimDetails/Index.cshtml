@@ -31,7 +31,7 @@
                         @Html.DisplayFor(modelItem => item.ClaimNumber)
                     </td>
                     <td>
-                        by @Html.DisplayFor(modelItem => item.CustomerPolicyRecord.ApplicationUser.Name)
+                        by @Html.DisplayFor(modelItem => item.ApplicationUser.Name)
                     </td>
                     <td>
                         @Html.ActionLink("Details", "Details", new { id = item.ClaimDetailId })

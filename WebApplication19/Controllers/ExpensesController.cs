@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -28,6 +29,7 @@ namespace WebApplication19.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Expense expense = db.Expenses.Find(id);
+            string username = expense.ApplicationUser.Name;
             if (expense == null)
             {
                 return HttpNotFound();
@@ -38,6 +40,8 @@ namespace WebApplication19.Controllers
         // GET: Expenses/Create
         public ActionResult Create()
         {
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name");
+
             return View();
         }
 
@@ -46,14 +50,16 @@ namespace WebApplication19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ExpenseId,DateOfExpense,TypeOfExpense,AmountOfExpense")] Expense expense)
+        public ActionResult Create([Bind(Include = "ExpenseId,DateOfExpense,TypeOfExpense,AmountOfExpense,ApplicationUserId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
+                expense.ApplicationUserId = User.Identity.GetUserId();
                 db.Expenses.Add(expense);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Name", expense.ApplicationUserId);
 
             return View(expense);
         }
@@ -78,7 +84,7 @@ namespace WebApplication19.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ExpenseId,DateOfExpense,TypeOfExpense,AmountOfExpense")] Expense expense)
+        public ActionResult Edit([Bind(Include = "ExpenseId,DateOfExpense,TypeOfExpense,AmountOfExpense,ApplicationUserId")] Expense expense)
         {
             if (ModelState.IsValid)
             {

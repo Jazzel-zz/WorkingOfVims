@@ -19,7 +19,8 @@ namespace VIMS
                         "~/Scripts/settings.js",
                         "~/Scripts/todolist.js",
                         "~/Scripts/dashboard.js",
-                        "~/Scripts/todolist.js"
+                        "~/Scripts/todolist.js",
+                        "~/Scripts/jquery.datetimepicker.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -43,7 +44,8 @@ namespace VIMS
                       "~/Content/horizontal-layout/style.css",
                       "~/Content/vendors/css/vendor.bundle.base.css",
                       "~/Content/vendors/css/vendor.bundle.addons.css",
-                      "~/Content/animate.css"
+                      "~/Content/animate.css",
+                      "~/Content/jquery.datetimepicker.css"
                       ));
         }
     }

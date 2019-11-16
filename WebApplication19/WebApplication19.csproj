@@ -286,6 +286,7 @@
     <Content Include="Content\images\logo.svg" />
     <Content Include="Content\images\samples\1280x768\12.jpg" />
     <Content Include="Content\images\samples\1280x768\5.jpg" />
+    <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\vendors\css\vendor.bundle.addons.css" />
     <Content Include="Content\vendors\css\vendor.bundle.base.css" />
     <Content Include="Content\vendors\js\vendor.bundle.addons.js" />
@@ -325,6 +326,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\horizontal-layout\architectui-angular-free-theme-20191027T114741Z-001.zip" />
     <Content Include="assets\js\fontawesome-free-5.11.2-web.zip" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\hoverable-collapse.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -332,6 +334,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

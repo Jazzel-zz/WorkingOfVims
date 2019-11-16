@@ -6,10 +6,11 @@
     <title>@ViewBag.Title - VIMS</title>
     @Styles.Render("~/Content/css")
     <style>
-        *{
-            font-family:'Century Gothic';
+        * {
+            font-family: 'Century Gothic';
         }
-        .form-control{
+
+        .form-control {
             border-color: #6F747B !important;
         }
     </style>
@@ -221,7 +222,7 @@
                             <i class="fas fa-copyright float-left mr-2" style="font-size:18px;"></i> Copyright © 2018 <a href="/" target="_blank">VIMS</a>. All rights reserved.
                         </span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-dark">
-                            <i class="fas fa-car-crash mr-2" style="font-size:20px;"></i> Vehicle Insurance Management System 
+                            <i class="fas fa-car-crash mr-2" style="font-size:20px;"></i> Vehicle Insurance Management System
                         </span>
                     </div>
                 </footer>
@@ -232,8 +233,9 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
-    @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

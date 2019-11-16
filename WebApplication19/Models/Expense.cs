@@ -19,9 +19,9 @@ namespace VIMS.Models
         public string TypeOfExpense { get; set; }
         [Required]
         [DisplayName("Amount Costed")]
-        public double AmountOfExpense { get; set; }
+        public int AmountOfExpense { get; set; }
         [Required]
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

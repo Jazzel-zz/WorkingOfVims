@@ -16,7 +16,17 @@ namespace VIMS.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var data = from item in db.PolicyTypes
+                       where
+                       item.PolicyTypeId == 5 ||
+                       item.PolicyTypeId == 6 ||
+                       item.PolicyTypeId == 7
+                       select item;
+            dynamic HOMEMODEL = new ExpandoObject();
+            HOMEMODEL.PolicySetOne = db.PolicyTypes.Take(4);
+            HOMEMODEL.PolicySetTwo = data.ToList();
+            HOMEMODEL.PolicySetThree = db.PolicyTypes.OrderByDescending(x => x.PolicyTypeId).Take(4);
+            return View(HOMEMODEL);
         }
         public ActionResult UserIndex()
         {

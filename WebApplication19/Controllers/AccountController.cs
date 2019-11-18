@@ -100,7 +100,7 @@ namespace VIMS.Controllers
                             ViewBag.Errors = false;
 
                             SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-                            return RedirectToAction("Dashboard", "Home");
+                            return RedirectToAction("Dashboard","Home");
 
                         }
                         else
@@ -480,7 +480,7 @@ namespace VIMS.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("UserIndex", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //

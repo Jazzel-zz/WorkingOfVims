@@ -93,7 +93,7 @@ namespace VIMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                vehicleInformation.RegistrationDate = DateTime.Now;
+                vehicleInformation.RegistrationDate = DateTime.Now.Date;
                 List<VehicleImages> fileDetails = new List<VehicleImages>();
                 for (int i = 0; i < Request.Files.Count; i++)
                 {

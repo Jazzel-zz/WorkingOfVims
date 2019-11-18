@@ -17,71 +17,90 @@ namespace WebApplication19.Controllers
         {
             return View();
         }
-        public ActionResult Vehicle(string type)
+        public ActionResult Vehicle()
         {
-            var data = from item in db.VehicleInformations
-                       orderby item.VehicleInformationId descending
-                       select item;
-            return View(data);
+            return View();
         }
-        public ActionResult Claim(string type)
+        public ActionResult Claim()
         {
-            var data = from item in db.ClaimDetails
-                       orderby item.ClaimDetailId descending
-                       select item;
-            return View(data);
+            return View();
+        }
+        public ActionResult Policy()
+        {
+            return View();
         }
 
-        public ActionResult Policy(string type, int month)
+        public JsonResult PolicyResults(string type, int month)
         {
-            ICollection<CustomerPolicyRecord> policyRecord = null;
-            DateTime date = DateTime.Now.Date;
+            var policyRecord = (dynamic)null;
+            DateTime dateTime = DateTime.Now.Date;
+            var date = dateTime.Date;
             // Show All
-            if (type == "" && month == 0)
+            if (type == "All" && month == 0)
             {
-                policyRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.Id).ToList();
+                policyRecord = (from item in db.CustomerPolicyRecords
+                                orderby item.Id descending
+                                select new
+                                {
+                                    Id = item.Id,
+                                    Policy = item.PolicyNumber,
+                                    Date = item.PolicyDate,
+                                    VehicleName = item.VehicleInformation.VehicleName,
+                                    VehicleRate = item.VehicleInformation.VehicleRate,
+                                    VehicleOwner = item.VehicleInformation.ApplicationUser.Name,
+                                    Tracker = item.Tracker,
+                                }).ToList();
 
             }
             // Show Today's Record
-            else if (type == "t" && month == 0)
+            else if (type == "Today" && month == 0)
             {
-                policyRecord = db.CustomerPolicyRecords.Where(x => EntityFunctions.TruncateTime(x.PolicyDate) == date).OrderByDescending(x => x.Id).ToList();
+                policyRecord = (from item in db.CustomerPolicyRecords
+                               where EntityFunctions.TruncateTime(item.PolicyDate) == date
+                               select new
+                               {
+                                   Id =item.Id,
+                                   Policy = item.PolicyNumber,
+                                   Date = item.PolicyDate,
+                                   VehicleName = item.VehicleInformation.VehicleName,
+                                   VehicleRate = item.VehicleInformation.VehicleRate,
+                                   VehicleOwner = item.VehicleInformation.ApplicationUser.Name,
+                                   Tracker = item.Tracker,
+                               }).ToList();
             }
             // Fixing clash between month and today
             else if (type == "t" && month != 0)
             {
-                return HttpNotFound();
+                return Json(new { Result = "ERROR" });
             }
             // Show Monthly Record
-            else if (type == "m" && month != 0)
+            else if (type == "Monthly" && month != 0)
             {
                 try
                 {
-                    if (month == 0)
+                    if (month != 0)
                     {
-                        //policyRecord = from item in db.CustomerPolicyRecords
-                        //       orderby item.PolicyDate.Month descending
-                        //       select item;
-                    }
-                    else if (month != 0)
-                    {
-                        //policyRecord = from item in db.CustomerPolicyRecords
-                        //       orderby item.PolicyDate.Month descending
-                        //       where item.PolicyDate.Month == month
-                        //       select item;
+                        policyRecord = (from item in db.CustomerPolicyRecords
+                                        where item.PolicyDate.Month == month
+                                        select new
+                                        {
+                                            Id = item.Id,
+                                            Policy = item.PolicyNumber,
+                                            Date = item.PolicyDate,
+                                            VehicleName = item.VehicleInformation.VehicleName,
+                                            VehicleRate = item.VehicleInformation.VehicleRate,
+                                            VehicleOwner = item.VehicleInformation.ApplicationUser.Name,
+                                            Tracker = item.Tracker,
+                                        }).ToList();
                     }
                     else
                     {
-                        //policyRecord = from item in db.CustomerPolicyRecords
-                        //       orderby item.PolicyDate.Month descending
-                        //       select item;
+                        return Json(new { Result = "ERROR" });
                     }
                 }
                 catch (Exception error)
                 {
-                    // monthly  order -- DIY
-                    policyRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.Id).ToList();
-
+                    policyRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.PolicyDate).ToList();
                 }
 
 
@@ -89,7 +108,7 @@ namespace WebApplication19.Controllers
             // Fixing clash between month(0) and type
             else if (type == "m" && month == 0)
             {
-                return HttpNotFound();
+                return Json(new { Result = "ERROR" });
             }
             // Just to Complete the Rule
             else
@@ -97,7 +116,182 @@ namespace WebApplication19.Controllers
                 policyRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.Id).ToList();
 
             }
-            return View(policyRecord);
+            return Json(policyRecord, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult VehicleResults(string type, int month)
+        {
+            var vehicleRecord = (dynamic)null;
+            DateTime dateTime = DateTime.Now.Date;
+            var date = dateTime.Date;
+            // Show All
+            if (type == "All" && month == 0)
+            {
+                vehicleRecord = (from item in db.VehicleInformations
+                                orderby item.VehicleInformationId descending
+                                select new
+                                {
+                                    Id = item.VehicleInformationId,
+                                    Company = item.VehicleCompany,
+                                    VehicleName = item.VehicleName,
+                                    VehicleRate = item.VehicleRate,
+                                    VehicleOwner = item.ApplicationUser.Name,
+                                    Date = item.RegistrationDate,
+                                    VehicleWarranty = item.VehicleWarranty,
+                                }).ToList();
+
+            }
+            // Show Today's Record
+            else if (type == "Today" && month == 0)
+            {
+                vehicleRecord = (from item in db.VehicleInformations
+                                where EntityFunctions.TruncateTime(item.RegistrationDate) == date
+                                select new
+                                {
+                                    Id = item.VehicleInformationId,
+                                    Company = item.VehicleCompany,
+                                    VehicleName = item.VehicleName,
+                                    VehicleRate = item.VehicleRate,
+                                    VehicleOwner = item.ApplicationUser.Name,
+                                    Date = item.RegistrationDate,
+                                    VehicleWarranty = item.VehicleWarranty,
+                                }).ToList();
+            }
+            // Fixing clash between month and today
+            else if (type == "t" && month != 0)
+            {
+                return Json(new { Result = "ERROR" });
+            }
+            // Show Monthly Record
+            else if (type == "Monthly" && month != 0)
+            {
+                try
+                {
+                    if (month != 0)
+                    {
+                        vehicleRecord = (from item in db.VehicleInformations
+                                        where item.RegistrationDate.Month == month
+                                        select new
+                                        {
+                                            Id = item.VehicleInformationId,
+                                            Company = item.VehicleCompany,
+                                            VehicleName = item.VehicleName,
+                                            VehicleRate = item.VehicleRate,
+                                            VehicleOwner = item.ApplicationUser.Name,
+                                            Date = item.RegistrationDate,
+                                            VehicleWarranty = item.VehicleWarranty,
+                                        }).ToList();
+                    }
+                    else
+                    {
+                        return Json(new { Result = "ERROR" });
+                    }
+                }
+                catch (Exception error)
+                {
+                    vehicleRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.PolicyDate).ToList();
+                }
+
+
+            }
+            // Fixing clash between month(0) and type
+            else if (type == "m" && month == 0)
+            {
+                return Json(new { Result = "ERROR" });
+            }
+            // Just to Complete the Rule
+            else
+            {
+                vehicleRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.Id).ToList();
+
+            }
+            return Json(vehicleRecord, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ClaimResults(string type, int month)
+        {
+            var claimRecord = (dynamic)null;
+            DateTime dateTime = DateTime.Now.Date;
+            var date = dateTime.Date;
+            // Show All
+            if (type == "All" && month == 0)
+            {
+                claimRecord = (from item in db.ClaimDetails
+                                orderby item.ClaimDetailId descending
+                                select new
+                                {
+                                    Id = item.ClaimDetailId,
+                                    Claim = item.ClaimNumber,
+                                    Date = item.DateOfAccident,
+                                    Policy = item.CustomerPolicyRecord.PolicyNumber,
+                                    VehicleName = item.CustomerPolicyRecord.VehicleInformation.VehicleRate,
+                                    VehicleOwner = item.ApplicationUser.Name,
+                                }).ToList();
+
+            }
+            // Show Today's Record
+            else if (type == "Today" && month == 0)
+            {
+                claimRecord = (from item in db.ClaimDetails
+                                where EntityFunctions.TruncateTime(item.DateOfAccident) == date
+                                select new
+                                {
+                                    Id = item.ClaimDetailId,
+                                    Claim = item.ClaimNumber,
+                                    Date = item.DateOfAccident,
+                                    Policy = item.CustomerPolicyRecord.PolicyNumber,
+                                    VehicleName = item.CustomerPolicyRecord.VehicleInformation.VehicleRate,
+                                    VehicleOwner = item.ApplicationUser.Name,
+                                }).ToList();
+            }
+            // Fixing clash between month and today
+            else if (type == "t" && month != 0)
+            {
+                return Json(new { Result = "ERROR" });
+            }
+            // Show Monthly Record
+            else if (type == "Monthly" && month != 0)
+            {
+                try
+                {
+                    if (month != 0)
+                    {
+                        claimRecord = (from item in db.ClaimDetails
+                                        where item.DateOfAccident.Month == month
+                                        select new
+                                        {
+                                            Id = item.ClaimDetailId,
+                                            Claim = item.ClaimNumber,
+                                            Date = item.DateOfAccident,
+                                            Policy = item.CustomerPolicyRecord.PolicyNumber,
+                                            VehicleName = item.CustomerPolicyRecord.VehicleInformation.VehicleRate,
+                                            VehicleOwner = item.ApplicationUser.Name,
+                                        }).ToList();
+                    }
+                    else
+                    {
+                        return Json(new { Result = "ERROR" });
+                    }
+                }
+                catch (Exception error)
+                {
+                    claimRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.PolicyDate).ToList();
+                }
+
+
+            }
+            // Fixing clash between month(0) and type
+            else if (type == "m" && month == 0)
+            {
+                return Json(new { Result = "ERROR" });
+            }
+            // Just to Complete the Rule
+            else
+            {
+                claimRecord = db.CustomerPolicyRecords.OrderByDescending(x => x.Id).ToList();
+
+            }
+            return Json(claimRecord, JsonRequestBehavior.AllowGet);
         }
 
     }

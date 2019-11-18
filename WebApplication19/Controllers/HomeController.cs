@@ -32,7 +32,7 @@ namespace VIMS.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Employee,Customer")]
+        [Authorize(Roles = "Employee")]
         public ActionResult Dashboard()
         {
             DateTime today = DateTime.Today;

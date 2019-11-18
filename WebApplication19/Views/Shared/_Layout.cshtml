@@ -148,21 +148,18 @@
             <nav class="bottom-navbar">
                 <div class="container">
                     <ul class="nav page-navigation">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="mdi mdi-view-dashboard-outline menu-icon"><i class="fa fa-home text-dark" aria-hidden="true"></i></i>
+                                <span class="menu-title">Home</span>
+                            </a>
+                        </li>
                         @if (User.IsInRole("Employee"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" href="/Home/Dashboard">
                                     <i class="mdi mdi-view-dashboard-outline menu-icon"><i class="fa fa-desktop text-dark" aria-hidden="true"></i></i>
                                     <span class="menu-title">Dashboard</span>
-                                </a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Customer"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">
-                                    <i class="mdi mdi-view-dashboard-outline menu-icon"><i class="fa fa-home text-dark" aria-hidden="true"></i></i>
-                                    <span class="menu-title">Home</span>
                                 </a>
                             </li>
                         }

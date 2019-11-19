@@ -25,13 +25,14 @@ hr.styled {
     margin-top: -1.25rem;
     margin-right: 4%;
     margin-left: 4%;
+    color: #fff !important;
 }
 
 .card.card-cascade .view.view-cascade.gradient-card-header {
     padding: 1.6rem 1rem;
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
-    color: #fff;
+    color: #fff !important;
     text-align: center;
 }
 
@@ -39,24 +40,29 @@ hr.styled {
     border-radius: .25rem;
     -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
     box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+    color: #fff !important;
 }
 
 .view {
     position: relative;
     overflow: hidden;
+    color: #fff !important;
     cursor: default;
 }
 
 .info-color {
-    background-color: #33b5e5 !important;
+    color: #fff !important;
+    background-color: #5a5a5a !important;
 }
 
 .pb-3, .py-3 {
+    color: #fff !important;
     padding-bottom: 1rem !important;
 }
 
 .pt-3, .py-3 {
     padding-top: 1rem !important;
+    color: #fff !important;
 }
 
 *, ::before, ::after {

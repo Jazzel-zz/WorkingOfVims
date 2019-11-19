@@ -684,8 +684,8 @@ select {
   position: relative;
 }
 .ul-style-1 li::before {
-  content: "\f267";
-  font-family: 'Material-Design-Iconic-Font';
+  content: "\f037";
+  font-family: FontAwesome;
   font-size: 20px;
   color: #282f3a;
   position: absolute;
@@ -709,8 +709,8 @@ select {
   margin-bottom: 0;
 }
 .ul-style-2 li::before {
-  content: "\f267";
-  font-family: 'Material-Design-Iconic-Font';
+  content: "\f179";
+  font-family: FontAwesome;
   font-size: 20px;
   color: #282f3a;
   position: absolute;
@@ -2056,8 +2056,8 @@ select {
   font-weight: 400;
 }
 .in-breadcrumb h6::before {
-  content: "\f301";
-  font-family: 'Material-Design-Iconic-Font';
+  content: "\f1fb";
+  font-family: FontAwesome;
   padding-right: 10px;
   font-size: 22px;
   vertical-align: middle;
@@ -2088,8 +2088,8 @@ select {
 .nice-select::after {
   border-bottom: none;
   border-right: none;
-  content: '\f2f9';
-  font-family: 'Material-Design-Iconic-Font';
+  content: '\f1c5';
+  font-family: FontAwesome;
   display: block;
   height: 5px;
   margin-top: 0;
@@ -2278,7 +2278,7 @@ select {
   position: absolute;
   left: 0;
   top: 20px;
-  font-size: 60px;
+  font-size: 55px;
   display: inline-block;
   line-height: 1;
   color: #2b2b2b;
@@ -4462,8 +4462,8 @@ select {
   position: relative;
 }
 .in-navigation .in-dropdown > a::after {
-  content: "\f2f9";
-  font-family: 'Material-Design-Iconic-Font';
+  content: "\f1c5";
+  font-family: FontAwesome;
   padding-left: 10px;
   font-weight: 400;
   font-size: 22px;
@@ -4728,7 +4728,7 @@ select {
  */
 .testimonial {
   max-width: 830px;
-  box-shadow: 0 0 10px rgba(3, 168, 243, 0.2);
+  box-shadow: 0 0 10px rgba(52,58,64, 0.2);
   text-align: center;
   padding: 30px 55px;
   margin: 0 auto;
@@ -4783,8 +4783,8 @@ select {
   transition: all 0.3s ease-in-out 0s;
 }
 .testimonial-image::before {
-  content: "\f1b2";
-  font-family: 'Material-Design-Iconic-Font';
+  content: "\f10e";  
+  font-family: FontAwesome;
   position: absolute;
   left: 0;
   top: 50%;
@@ -4979,9 +4979,9 @@ select {
 }
 .faequently-accordion h4 a::before {
   color: #222;
-  content: "\f2f9";
+  content: "\f1c5";
   font-size: 23.2px;
-  font-family: Material-Design-Iconic-Font;
+  font-family: FontAwesome;
   right: 0;
   position: absolute;
   text-align: center;

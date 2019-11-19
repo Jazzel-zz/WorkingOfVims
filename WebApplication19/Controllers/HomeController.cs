@@ -130,6 +130,11 @@ namespace VIMS.Controllers
             ViewBag.MonthlyData = values;
             ViewBag.MonthlyVehicleData = VehicleValues;
 
+            ViewBag.CustomersCount = db.Users.Count();
+            ViewBag.CustomerPoliciesCount = db.CustomerPolicyRecords.Count();
+            ViewBag.ExpensesCount = (from item in db.Expenses select item.AmountOfExpense).Sum();
+            ViewBag.VehiclesCount = db.VehicleInformations.Count();
+
             dynamic VIMSINFOMODEL = new ExpandoObject();
             VIMSINFOMODEL.Vehicles = db.VehicleInformations.OrderByDescending(find => find.VehicleInformationId).Take(5);
             VIMSINFOMODEL.Policies = db.PolicyTypes.OrderByDescending(find => find.PolicyTypeId).Take(3);
@@ -142,7 +147,10 @@ namespace VIMS.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            ViewBag.CustomersCount = db.Users.Count();
+            ViewBag.CustomerPoliciesCount = db.CustomerPolicyRecords.Count();
+            ViewBag.ExpensesCount = (from item in db.Expenses select item.AmountOfExpense).Sum();
+            ViewBag.VehiclesCount = db.VehicleInformations.Count();
             return View();
         }
 

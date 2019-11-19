@@ -28,9 +28,8 @@
             <nav class="navbar top-navbar bg-dark col-lg-12 col-12 p-0">
                 <div class="container">
                     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                        <a class="navbar-brand brand-logo" href="/">
-                            <img src="../../images/logo-white.svg"
-                                 alt="logo" />
+                        <a class="navbar-brand brand-logo text-white" href="/">
+                            <h1 style="font-family:Pacifico">Vims</h1>
                         </a>
                         <a class="navbar-brand brand-logo-mini" href="/">
                             <img src="../../images/logo-mini.svg"
@@ -52,7 +51,7 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav navbar-nav-right">
-                            <li class="nav-item dropdown">
+                            @*<li class="nav-item dropdown">
                                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                                    data-toggle="dropdown">
                                     <i class="mdi mdi-bell-outline ml-2"><i class="fa fa-bell" aria-hidden="true"></i></i>
@@ -109,7 +108,7 @@
                                         </div>
                                     </a>
                                 </div>
-                            </li>
+                            </li>*@
                             @using Microsoft.AspNet.Identity
                             @if (Request.IsAuthenticated)
                             {
@@ -169,12 +168,7 @@
                                 <span class="menu-title">My Account</span>
                             </a>
                         </li>
-                        <li class="nav-item mega-menu">
-                            <a href="/Home/Testimonial/" class="nav-link">
-                                <i class="mdi mdi-codepen menu-icon"><i class="fa fa-comments text-dark" aria-hidden="true"></i></i>
-                                <span class="menu-title">Testimonials</span>
-                            </a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a href="/PolicyTypes/" class="nav-link">
                                 <i class="mdi mdi-image-filter menu-icon"><i class="fa fa-money text-dark" aria-hidden="true"></i></i>

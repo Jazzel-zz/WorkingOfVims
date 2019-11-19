@@ -11,6 +11,7 @@
             <div class="card px-2 shadow-lg">
                 <div class="card-body">
                     <div class="container-fluid">
+
                         <h1 class="text-center" style="font-family:Pacifico;">Billing Information</h1>
                         <h3 class="text-right my-4">Invoice&nbsp;&nbsp;#@Html.DisplayFor(model => model.BillNumber)</h3>
                         <hr>
@@ -189,11 +190,19 @@
                             }
 
                         }
-                        <hr>
+                        <hr />
+                        <div class="row">
+                            <div class="col">
+                                <h1 style="font-family:Pacifico;">Vims</h1>
+                            </div>
+                            <div class="col">
+                                <p class="float-right"><i class="fa fa-copyright"></i> Copyright © 2018 VIMS. All rights reserved.</p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="container-fluid w-100">
                         <a href="#" class="btn btn-primary float-right mt-4 ml-2"><i class="mdi mdi-printer mr-1"></i>Print</a>
-                        <a href="#" class="btn btn-success float-right mt-4"><i class="mdi mdi-telegram mr-1"></i>Send Invoice</a>
                     </div>
                 </div>
             </div>

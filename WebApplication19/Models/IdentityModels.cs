@@ -64,6 +64,7 @@ namespace VIMS.Models
         public virtual DbSet<ClaimDetail> ClaimDetails { get; set; }
         public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<VehicleImages> VehicleImages { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
     }
 }

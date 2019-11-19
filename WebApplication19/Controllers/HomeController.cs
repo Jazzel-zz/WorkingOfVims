@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using VIMS.Models;
+using WebApplication19.Models;
 
 namespace VIMS.Controllers
 {
@@ -149,16 +150,37 @@ namespace VIMS.Controllers
             ViewBag.Message = "Your application description page.";
             ViewBag.CustomersCount = db.Users.Count();
             ViewBag.CustomerPoliciesCount = db.CustomerPolicyRecords.Count();
-            ViewBag.ExpensesCount = (from item in db.Expenses select item.AmountOfExpense).Sum();
+            if(db.Expenses.Count() != 0)
+            {
+                ViewBag.ExpensesCount = (from item in db.Expenses select item.AmountOfExpense).Sum();
+
+            }
+            else
+            {
+                ViewBag.ExpensesCount = 0;
+
+            }
             ViewBag.VehiclesCount = db.VehicleInformations.Count();
             return View();
         }
 
         public ActionResult Contact()
         {
+            ViewBag.Success = "";
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult Contact(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Contacts.Add(contact);
+                db.SaveChanges();
+                ViewBag.Success = "Done";
+            }
+            return View(contact);
         }
         public ActionResult Testimonial()
         {
@@ -170,6 +192,7 @@ namespace VIMS.Controllers
 
             return View();
         }
+
         public bool IsNumeric(string value)
         {
             return value.All(char.IsNumber);

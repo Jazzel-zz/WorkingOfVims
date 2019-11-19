@@ -100,7 +100,15 @@ namespace VIMS.Controllers
                             ViewBag.Errors = false;
 
                             SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-                            return RedirectToAction("Dashboard","Home");
+                            if (User.IsInRole("Employee"))
+                            {
+                                return RedirectToAction("Dashboard", "Home");
+
+                            }
+
+                            return RedirectToAction("Index", "Manage");
+
+
 
                         }
                         else
@@ -111,7 +119,7 @@ namespace VIMS.Controllers
                     }
                 }
 
-                
+
             }
             else
             {

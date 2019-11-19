@@ -184,6 +184,7 @@
     <Compile Include="Controllers\PolicyTypesController.cs" />
     <Compile Include="Controllers\ReportingController.cs" />
     <Compile Include="Controllers\UnauthorizedUserController.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\VehicleImages.cs" />
     <Compile Include="Controllers\VehicleInformationsController.cs" />
     <Compile Include="Global.asax.cs">
